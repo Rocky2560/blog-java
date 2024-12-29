@@ -39,13 +39,13 @@ public class blogController {
         return postService.getAlllistPosts();
     }
 
-    @GetMapping("/posts/{postid}")
-            public posts getPosts(@PathVariable("postid") int postid)
-    {
-        return postService.getPostById(postid);
-    }
+//    @GetMapping("/posts/{postid}")
+//            public posts getPosts(@PathVariable("postid") int postid)
+//    {
+//        return postService.getPostById(postid);
+//    }
 
-    @DeleteMapping("/posts/{postid}")
+    @GetMapping("/posts/{postid}")
             public void deletePost(@PathVariable ("postid") int postid)
     {
         postService.deletePosts(postid);

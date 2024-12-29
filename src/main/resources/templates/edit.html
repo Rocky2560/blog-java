@@ -180,7 +180,7 @@
                                 <td><!-- Call to action buttons -->
                                     <div class="button-container">
                                         <a href="/postDetails" class="edit-button">Edit</a>
-                                        <a href="/postDetails" class="delete-button">Delete</a>
+                                        <a th:href="@{/api/posts/{postid}(postid = ${post.id})}" class="delete-button">Delete</a>
                                     </div>
                                 </td>
                             </tr>
