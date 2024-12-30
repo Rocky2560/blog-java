@@ -21,9 +21,9 @@ public class postService {
         return post;
     }
 
-    public posts getPostById(int id)
+    public posts getPostById(long id)
     {
-        return userpostsRepository.findById(id).get();
+        return userpostsRepository.findById((int) id).get();
     }
 
     public void saveorUpdate(posts posts)

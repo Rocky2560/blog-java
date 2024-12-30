@@ -3,6 +3,7 @@ package com.example.demo.Controller;
 import com.example.demo.Service.postService;
 import com.example.demo.model.posts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,11 +26,19 @@ public class blogController {
     }
 
     @GetMapping("/postDetails")
-    public String  postDetails(Model model)
+    public String  postDetails(@RequestParam(value = "id", required = false) Long id, Model model)
     {
-
-        List<posts> posts = postService.getAlllistPosts();
-        model.addAttribute("posts",posts);
+//        if (id == null) {
+            List<posts> posts = postService.getAlllistPosts();
+            model.addAttribute("posts", posts);
+//        }
+//        else {
+//            posts editPost = postService.getPostById(id);
+//            if (editPost == null) {
+//                return "redirect:/error";
+//            }
+//            model.addAttribute("editPost", editPost);
+//        }
         return "edit";
     }
 
@@ -70,5 +79,35 @@ public class blogController {
     {
         postService.saveorUpdate(posts);
         return posts;
+    }
+
+
+    @GetMapping("editPost/{id}")
+    public  ResponseEntity<posts>  editPost(@PathVariable("id") int id, Model model)
+    {
+        posts post = postService.getPostById(id);
+        if (post == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(post);
+
+//        posts editPost = postService.getPostById(id);
+//
+//        if (editPost == null)
+//        {
+//            return "redirect:/error";
+//        }
+//        model.addAttribute("id", editPost.getId());
+//        model.addAttribute("title", editPost.getTitle());
+//        model.addAttribute("description", editPost.getDescription());
+////        System.out.println("hello");
+//        return "edit";
+
+    }
+    @PostMapping("editPost")
+    public String updateExpense(@ModelAttribute posts posts)
+    {
+        postService.saveorUpdate(posts);
+        return "redirect:/api/postDetails";
     }
 }

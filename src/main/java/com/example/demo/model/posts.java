@@ -34,4 +34,5 @@ public class posts {
     }
     @Column(nullable = false)
     private LocalDateTime createdate;
+
 }
