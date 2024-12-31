@@ -139,6 +139,18 @@
                             <label for="description" class="form-label">Description</label>
                             <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter the description" required></textarea>
                         </div>
+                        <div class="mb-3">
+                            <label for="category" class="form-label">Category</label>
+                            <div class="col-75">
+                                <select  id = "category" class="form-control"  name="category">
+                                    <option value="database">Database</option>
+                                    <option value="security">Security</option>
+                                    <option value="ai">AI</option>
+                                    <option value="programming">Programming</option>
+<!--                                    <option value="income">Issues</option>-->
+                                </select>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
 <!--                    <div class="card-footer small text-muted">-->
@@ -158,6 +170,7 @@
                                 <th>S.N</th>
                                 <th>Title</th>
                                 <th>Description</th>
+                                <th>Category</th>
                                 <th>Created Date</th>
                                 <th>Actions</th>
                             </tr>
@@ -167,6 +180,7 @@
                                 <th>S.N</th>
                                 <th>Title</th>
                                 <th>Description</th>
+                                <th>Category</th>
                                 <th>Created Date</th>
                                 <th>Actions</th>
                             </tr>
@@ -176,6 +190,7 @@
                                 <td th:text="${status.index + 1}"></td>
                                 <td th:text="${post.title}"></td>
                                 <td th:text="${post.description}"></td>
+                                <td th:text="${post.category}"></td>
                                 <td th:text="${post.createdate}"></td>
                                 <td><!-- Call to action buttons -->
                                     <div class="button-container">
@@ -202,6 +217,18 @@
                                                             <div class="mb-3">
                                                                 <label for="description" class="form-label">Description</label>
                                                                 <textarea id="postDescription" name="description" class="form-control" rows="3" required></textarea>
+                                                            </div>
+                                                            <div class="mb-3">
+                                                                <label for="category1" class="form-label">Category</label>
+                                                                <div class="col-75">
+                                                                    <select  id = "category1" class="form-control"  name="category">
+                                                                        <option value="database">Database</option>
+                                                                        <option value="security">Security</option>
+                                                                        <option value="ai">AI</option>
+                                                                        <option value="programming">Programming</option>
+                                                                        <!--                                    <option value="income">Issues</option>-->
+                                                                    </select>
+                                                                </div>
                                                             </div>
                                                             <div class="d-flex justify-content-end">
                                                                 <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
@@ -275,6 +302,7 @@
                 $('#postId').val(data.id);
                 $('#postTitle').val(data.title);
                 $('#postDescription').val(data.description);
+                $('#category1').val(data.category);
             },
             error: function () {
                 alert('Error fetching post data.');

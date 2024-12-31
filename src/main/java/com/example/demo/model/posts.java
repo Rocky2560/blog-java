@@ -35,4 +35,6 @@ public class posts {
     @Column(nullable = false)
     private LocalDateTime createdate;
 
+    @Column(nullable = false)
+    private String category;
 }

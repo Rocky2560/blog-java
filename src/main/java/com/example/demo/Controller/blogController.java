@@ -20,8 +20,10 @@ public class blogController {
     postService postService;
 
     @GetMapping("/admin")
-    public String adminLogin()
+    public String adminLogin(Model model)
     {
+        List<posts> posts = postService.getAlllistPosts();
+        model.addAttribute("posts", posts);
         return "index";
     }
 
