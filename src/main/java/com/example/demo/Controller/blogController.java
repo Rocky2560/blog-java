@@ -68,13 +68,6 @@ public class blogController {
         return "index";
     }
 
-//    @PostMapping("/addPost")
-//    public String savePosts (@RequestBody posts posts)
-//    {
-//        System.out.println(posts);
-//        postService.saveorUpdate(posts);
-//        return "index";
-//    }
 
     @PutMapping("/posts")
     public posts update (@RequestBody posts posts)
@@ -92,19 +85,6 @@ public class blogController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(post);
-
-//        posts editPost = postService.getPostById(id);
-//
-//        if (editPost == null)
-//        {
-//            return "redirect:/error";
-//        }
-//        model.addAttribute("id", editPost.getId());
-//        model.addAttribute("title", editPost.getTitle());
-//        model.addAttribute("description", editPost.getDescription());
-////        System.out.println("hello");
-//        return "edit";
-
     }
     @PostMapping("editPost")
     public String updateExpense(@ModelAttribute posts posts)

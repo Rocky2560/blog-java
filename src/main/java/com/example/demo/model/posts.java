@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Blob;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -37,4 +38,7 @@ public class posts {
 
     @Column(nullable = false)
     private String category;
+
+    @Column(nullable = false)
+    private String image;
 }
