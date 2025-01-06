@@ -125,7 +125,7 @@
 <!--                        .-->
 <!--                    </div>-->
 <!--                </div>-->
-                <form class="card mb-4" action="/api/addPost" method="post" >
+                <form class="card mb-4" action="/api/addPost" method="post"  enctype="multipart/form-data">
                     <div class="card-header">
                         <i class="fas fa-chart-area me-1"></i>
                         Posts Add
@@ -153,7 +153,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="image" class="form-label">Description</label>
-                            <input type="file" class="form-control" id="image" name="image" placeholder="Upload  the image" required>
+                            <input type="file" class="form-control" id="image" name="image" placeholder="Upload  the image" accept="image/*" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>
@@ -176,6 +176,7 @@
                                 <th>Description</th>
                                 <th>Category</th>
                                 <th>Created Date</th>
+                                <th>Image</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -186,6 +187,7 @@
                                 <th>Description</th>
                                 <th>Category</th>
                                 <th>Created Date</th>
+                                <th>Image</th>
                                 <th>Actions</th>
                             </tr>
                             </tfoot>
@@ -196,6 +198,10 @@
                                 <td th:text="${post.description}"></td>
                                 <td th:text="${post.category}"></td>
                                 <td th:text="${post.createdate}"></td>
+                                <td>
+                                    <!-- Dynamically load the image -->
+                                    <img th:src="@{${post.image}}" alt="Post Image" style="width: 100px; height: auto;">
+                                </td>
                                 <td><!-- Call to action buttons -->
                                     <div class="button-container">
                                         <!-- Edit Button -->
@@ -206,7 +212,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <!-- Form Inside Modal -->
-                                                    <form class="card mb-4" th:action="@{/api/editPost}"  method="post">
+                                                    <form class="card mb-4" th:action="@{/api/editPost}"  method="post" enctype="multipart/form-data">
                                                         <div class="card-header">
                                                             <i class="fas fa-edit me-1"></i>
                                                             Edit Post
@@ -234,6 +240,11 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
+                                                            <div class="mb-3">
+                                                                <label for="image1" class="form-label">Description</label>
+                                                                <input type="file" class="form-control" id="image1" name="image1" placeholder="Upload  the image" accept="image/*">
+                                                            </div>
+                                                            <img th:src="@{${post.image}}" alt="Post Image" style="width: 100px; height: auto;">
                                                             <div class="d-flex justify-content-end">
                                                                 <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
                                                                 <button type="submit" class="btn btn-primary">Save Changes</button>
@@ -307,6 +318,7 @@
                 $('#postTitle').val(data.title);
                 $('#postDescription').val(data.description);
                 $('#category1').val(data.category);
+                $('#image1').val(data.image);
             },
             error: function () {
                 alert('Error fetching post data.');
