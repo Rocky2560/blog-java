@@ -9,6 +9,52 @@
     <title>Posts</title>
     <link href="/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.tiny.cloud/1/cmlhalgaq8kfrb6mgdzoyi67qbl8ef3fmo5meda9ziramxa7/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+    selector: '#description',
+    plugins: 'image',
+    toolbar: 'undo redo | image | styleselect | bold italic | alignleft aligncenter alignright',
+    automatic_uploads: true,
+    images_upload_url: '/api/uploads',  // Spring Boot endpoint
+    file_picker_types: 'image',
+    images_upload_handler: function (blobInfo, success, failure) {
+      const xhr = new XMLHttpRequest();
+      const formData = new FormData();
+
+      xhr.open('POST', '/api/uploads');
+      xhr.setRequestHeader('Accept', 'application/json'); // Optional: Set if the backend requires it
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          try {
+            const json = JSON.parse(xhr.responseText);
+            if (json && json.location) {
+              success(json.location); // Pass the image URL to TinyMCE
+            } else {
+              failure('Invalid JSON response: Missing "location" field.');
+            }
+          } catch (err) {
+            failure('Error parsing JSON response: ' + err.message);
+          }
+        } else {
+          failure('HTTP Error: ' + xhr.status);
+        }
+      };
+
+      xhr.onerror = function () {
+        failure('Network Error');
+      };
+
+      const blob = blobInfo.blob();
+      formData.append('file', blob, blobInfo.filename());
+      xhr.send(formData);
+    }
+  });
+
+
+
+
+</script>
 </head>
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -42,65 +88,13 @@
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading">Core</div>
-                    <a class="nav-link" href="index.html">
+                    <a class="nav-link" th:href="@{/api/admin}">
                         <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Dashboard
                     </a>
-                    <a class="nav-link" href="edit.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    <a class="nav-link" th:href="@{/api/postDetails}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                         Posts
-                    </a>
-                    <div class="sb-sidenav-menu-heading">Interface</div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                        Layouts
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="layout-static.html">Static Navigation</a>
-                            <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>
-                        </nav>
-                    </div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                        <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                        Pages
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                                Authentication
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="login.html">Login</a>
-                                    <a class="nav-link" href="register.html">Register</a>
-                                    <a class="nav-link" href="password.html">Forgot Password</a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                                Error
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="401.html">401 Page</a>
-                                    <a class="nav-link" href="404.html">404 Page</a>
-                                    <a class="nav-link" href="500.html">500 Page</a>
-                                </nav>
-                            </div>
-                        </nav>
-                    </div>
-                    <div class="sb-sidenav-menu-heading">Addons</div>
-                    <a class="nav-link" href="charts.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                        Charts
-                    </a>
-                    <a class="nav-link" href="tables.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                        Tables
                     </a>
                 </div>
             </div>
@@ -304,40 +298,31 @@
     </footer>
 </div>
 </div>
-
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
-    // Fetch post data and populate the modal form
-    $(document).on('click', '.test', function () {
-        var postId = $(this).data('id');
-        $.ajax({
-            url: '/api/editPost/' + postId,
-            type: 'GET',
-            success: function (data) {
-                $('#postId').val(data.id);
-                $('#postTitle').val(data.title);
-                $('#postDescription').val(data.description);
-                $('#category1').val(data.category);
-                $('#image1').val(data.image);
-            },
-            error: function () {
-                alert('Error fetching post data.');
-            }
-        });
-    });
+ // Fetch post data and populate the modal form
+ $(document).on('click', '.test', function () {
+     var postId = $(this).data('id');
+     $.ajax({
+         url: '/api/editPost/' + postId,
+         type: 'GET',
+         success: function (data) {
+             $('#postId').val(data.id);
+             $('#postTitle').val(data.title);
+             $('#postDescription').val(data.description);
+             $('#category1').val(data.category);
+             $('#image1').val(data.image);
+         },
+         error: function () {
+             alert('Error fetching post data.');
+         }
+     });
+ });
 </script>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="/js/scripts.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script src="/assets/demo/chart-area-demo.js"></script>
-<script src="/assets/demo/chart-bar-demo.js"></script>
-<script src="/assets/demo/chart-pie-demo.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="/js/scripts.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script src="/assets/demo/chart-area-demo.js"></script>
-<script src="/assets/demo/chart-bar-demo.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 <script src="/js/datatables-simple-demo.js"></script>
 </body>

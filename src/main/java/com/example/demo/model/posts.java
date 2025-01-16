@@ -25,8 +25,9 @@ public class posts {
     @Column(nullable = false)
     private String title;
 
+    @Lob
     @Column(nullable = false)
-    private String description;
+    private String  description;
 
     public posts()
     {

@@ -12,16 +12,24 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/api")
 public class blogController {
 
+    private static final String UPLOAD_DIR = "src/main/resources/static/uploads/";
     @Autowired
     postService postService;
 
+    //Pointing tto the index page
     @GetMapping("/admin")
     public String adminLogin(Model model)
     {
@@ -30,40 +38,87 @@ public class blogController {
         return "index";
     }
 
+    @GetMapping("/uploads")
+    public ResponseEntity<?> loaduploadsFile(@RequestParam("file") MultipartFile file) throws IOException
+    {
+
+        if (file != null && !file.isEmpty()) {
+            File uploadDir = new File(UPLOAD_DIR);
+            if (!uploadDir.exists())
+                uploadDir.mkdirs();
+
+            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+            Path filePath = Paths.get(UPLOAD_DIR + fileName);
+            Files.write(filePath, file.getBytes());
+            Map<String, String> result = new HashMap<>();
+            result.put("location", "/uploads/" + file.getOriginalFilename());
+            //set the image path to the objects
+//            posts.setImage("/uploads/" + fileName);
+
+            String fPath = UPLOAD_DIR + file.getOriginalFilename();
+//        file.transferTo(new File(filePath));
+            System.out.println("fissssle");
+//        Map<String, String> result = new HashMap<>();
+//        result.put("location","uploads/"+ file.getOriginalFilename());
+            return ResponseEntity.ok(fPath);
+        }
+        return ResponseEntity.status(400).body(Map.of("error", "No file uploaded"));
+    }
+
+    //Uplaod the file which is added in the text field as well
+    @PostMapping("/uploads")
+    public ResponseEntity<?> uploadsFile(@RequestParam("file") MultipartFile file) throws IOException
+    {
+
+        if (file != null && !file.isEmpty()) {
+            File uploadDir = new File(UPLOAD_DIR);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+
+            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+            Path filePath = Paths.get(UPLOAD_DIR + fileName);
+            Files.write(filePath, file.getBytes());
+
+            // Public URL to access the uploaded image
+            String fileUrl = "http://localhost:8082/uploads/" + fileName;
+
+            // Response JSON with the `location` key
+            Map<String, String> result = new HashMap<>();
+            result.put("location", fileUrl);
+
+            return ResponseEntity.ok(result);
+        }
+
+        return ResponseEntity.status(400).body(Map.of("error", "No file uploaded"));
+
+    }
+
+    //Showing the post details
     @GetMapping("/postDetails")
     public String  postDetails(@RequestParam(value = "id", required = false) Long id, Model model)
     {
-//        if (id == null) {
             List<posts> posts = postService.getAlllistPosts();
             model.addAttribute("posts", posts);
-//        }
-//        else {
-//            posts editPost = postService.getPostById(id);
-//            if (editPost == null) {
-//                return "redirect:/error";
-//            }
-//            model.addAttribute("editPost", editPost);
-//        }
+
         return "edit";
     }
 
-    @GetMapping("/posts")
-    public List<posts> getAllPosts()
-    {
-        return postService.getAlllistPosts();
-    }
-
-//    @GetMapping("/posts/{postid}")
-//            public posts getPosts(@PathVariable("postid") int postid)
+//    @GetMapping("/posts")
+//    public List<posts> getAllPosts()
 //    {
-//        return postService.getPostById(postid);
+//        return postService.getAlllistPosts();
 //    }
 
+
+    //Getting the id for the edit process
     @GetMapping("/posts/{postid}")
             public void deletePost(@PathVariable ("postid") int postid)
     {
         postService.deletePosts(postid);
     }
+
+    //Posting changes via id for the edit process
     @PostMapping("/addPost")
     public String addPost(@RequestParam("title") String title, @RequestParam("description") String description,@RequestParam("category") String category, @RequestParam("image")MultipartFile image, RedirectAttributes redirectAttributes) {
         // Handle the form data
@@ -84,13 +139,6 @@ public class blogController {
         return "index";
     }
 
-
-//    @PutMapping("/posts")
-//    public posts update (@RequestBody posts posts)
-//    {
-//        postService.saveorUpdate(posts);
-//        return posts;
-//    }
 
 
     @GetMapping("editPost/{id}")
