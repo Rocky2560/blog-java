@@ -67,7 +67,7 @@ public class blogController {
 
     //Uplaod the file which is added in the text field as well
     @PostMapping("/uploads")
-    public ResponseEntity<?> uploadsFile(@RequestParam("file") MultipartFile file) throws IOException
+    public ResponseEntity< Map<String, String>> uploadsFile(@RequestParam("file") MultipartFile file) throws IOException
     {
 
         if (file != null && !file.isEmpty()) {
@@ -85,9 +85,10 @@ public class blogController {
 
             // Response JSON with the `location` key
             Map<String, String> result = new HashMap<>();
+            Map<String, String> response = Map.of("location", fileUrl);
             result.put("location", fileUrl);
 
-            return ResponseEntity.ok(result);
+            return ResponseEntity.ok(response);
         }
 
         return ResponseEntity.status(400).body(Map.of("error", "No file uploaded"));

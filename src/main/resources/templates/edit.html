@@ -8,53 +8,10 @@
     <meta name="author" content="" />
     <title>Posts</title>
     <link href="/css/styles.css" rel="stylesheet" />
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <script src="https://cdn.tiny.cloud/1/cmlhalgaq8kfrb6mgdzoyi67qbl8ef3fmo5meda9ziramxa7/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-<script>
-    tinymce.init({
-    selector: '#description',
-    plugins: 'image',
-    toolbar: 'undo redo | image | styleselect | bold italic | alignleft aligncenter alignright',
-    automatic_uploads: true,
-    images_upload_url: '/api/uploads',  // Spring Boot endpoint
-    file_picker_types: 'image',
-    images_upload_handler: function (blobInfo, success, failure) {
-      const xhr = new XMLHttpRequest();
-      const formData = new FormData();
 
-      xhr.open('POST', '/api/uploads');
-      xhr.setRequestHeader('Accept', 'application/json'); // Optional: Set if the backend requires it
-      xhr.onload = function () {
-        if (xhr.status === 200) {
-          try {
-            const json = JSON.parse(xhr.responseText);
-            if (json && json.location) {
-              success(json.location); // Pass the image URL to TinyMCE
-            } else {
-              failure('Invalid JSON response: Missing "location" field.');
-            }
-          } catch (err) {
-            failure('Error parsing JSON response: ' + err.message);
-          }
-        } else {
-          failure('HTTP Error: ' + xhr.status);
-        }
-      };
-
-      xhr.onerror = function () {
-        failure('Network Error');
-      };
-
-      const blob = blobInfo.blob();
-      formData.append('file', blob, blobInfo.filename());
-      xhr.send(formData);
-    }
-  });
-
-
-
-
-</script>
 </head>
 <body class="sb-nav-fixed">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -318,6 +275,28 @@
          }
      });
  });
+</script>
+<script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+     .create(document.querySelector('#description'), {
+       extraPlugins: [SimpleUploadAdapter],
+       simpleUpload: {
+         uploadUrl: '/api/uploads', // replace with your upload URL
+         headers: {
+           'X-CSRF-TOKEN': 'CSRF-TOKEN'
+         }
+       }
+     })
+     .then(editor => {
+       const fileInput = editor.ui.view.editable.element.querySelector('input[type="file"]');
+       if (fileInput) {
+         fileInput.name = 'file'; // Ensure the name attribute is 'file'
+       }
+     })
+     .catch(error => {
+       console.error(error);
+     });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="/js/scripts.js"></script>
