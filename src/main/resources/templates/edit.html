@@ -8,7 +8,6 @@
     <meta name="author" content="" />
     <title>Posts</title>
     <link href="/css/styles.css" rel="stylesheet" />
-    <script src="https://cdn.ckeditor.com/ckeditor5/34.0.0/classic/ckeditor.js"></script>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <script src="https://cdn.tiny.cloud/1/cmlhalgaq8kfrb6mgdzoyi67qbl8ef3fmo5meda9ziramxa7/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
@@ -276,27 +275,18 @@
      });
  });
 </script>
-<script src="https://cdn.ckeditor.com/ckeditor5/37.1.0/classic/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/38.0.1/classic/ckeditor.js"></script>
 <script>
     ClassicEditor
-     .create(document.querySelector('#description'), {
-       extraPlugins: [SimpleUploadAdapter],
-       simpleUpload: {
-         uploadUrl: '/api/uploads', // replace with your upload URL
-         headers: {
-           'X-CSRF-TOKEN': 'CSRF-TOKEN'
-         }
-       }
-     })
-     .then(editor => {
-       const fileInput = editor.ui.view.editable.element.querySelector('input[type="file"]');
-       if (fileInput) {
-         fileInput.name = 'file'; // Ensure the name attribute is 'file'
-       }
-     })
-     .catch(error => {
-       console.error(error);
-     });
+        .create(document.querySelector('#description'), {
+            toolbar: ['undo', 'redo', 'bold', 'italic', 'link', 'imageUpload'],
+            ckfinder: {
+                uploadUrl: '/api/uploads'  // URL to handle image uploads
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="/js/scripts.js"></script>

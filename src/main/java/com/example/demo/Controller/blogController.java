@@ -4,6 +4,7 @@ import com.example.demo.Service.postService;
 import com.example.demo.model.posts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,32 +68,44 @@ public class blogController {
 
     //Uplaod the file which is added in the text field as well
     @PostMapping("/uploads")
-    public ResponseEntity< Map<String, String>> uploadsFile(@RequestParam("file") MultipartFile file) throws IOException
+    public ResponseEntity<Map<String, String>> uploadsFile(@RequestParam("upload") MultipartFile file) throws IOException
     {
-
-        if (file != null && !file.isEmpty()) {
-            File uploadDir = new File(UPLOAD_DIR);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdirs();
+        try {
+            // Define the directory to save the file
+            File directory = new File(UPLOAD_DIR);
+            if (!directory.exists()) {
+                directory.mkdirs();
             }
 
-            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-            Path filePath = Paths.get(UPLOAD_DIR + fileName);
-            Files.write(filePath, file.getBytes());
+            // Save the file
+            String filePath = UPLOAD_DIR + file.getOriginalFilename();
+            file.transferTo(new File(filePath));
 
-            // Public URL to access the uploaded image
-            String fileUrl = "http://localhost:8082/uploads/" + fileName;
-
-            // Response JSON with the `location` key
-            Map<String, String> result = new HashMap<>();
-            Map<String, String> response = Map.of("location", fileUrl);
-            result.put("location", fileUrl);
-
+            // Return the URL of the uploaded file
+            Map<String, String> response = new HashMap<>();
+            response.put("url", "/" + filePath); // Ensure this is accessible in your application
             return ResponseEntity.ok(response);
+
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
 
-        return ResponseEntity.status(400).body(Map.of("error", "No file uploaded"));
+    }
+    // Class for the response JSON
+    public static class ImageResponse {
+        private String url;
 
+        public ImageResponse(String url) {
+            this.url = url;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
     }
 
     //Showing the post details
