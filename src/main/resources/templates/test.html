@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinyMCE with Spring Boot</title>
+    <!-- Include TinyMCE CDN -->
+    <script src="https://cdn.tiny.cloud/1/clcvvbuvfrfl9byrjv4vqzlg28gilqq1h52742zdxcva4w0m/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: '#editor',
+            plugins: 'image code',
+            toolbar: 'undo redo | link image | code',
+            automatic_uploads: true,
+            images_upload_handler: function (blobInfo, success, failure) {
+                const formData = new FormData();
+                formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+                fetch('http://localhost:8082/api/images/upload', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    success(data.url); // Use the returned URL
+                })
+                .catch(error => {
+                    console.error('Image upload failed:', error);
+                    failure('Image upload failed');
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+<h2>Spring Boot TinyMCE Image Upload Example</h2>
+<form action="/submit" method="POST">
+    <textarea id="editor" name="content"></textarea>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>

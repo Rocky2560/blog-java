@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,77 +37,78 @@ public class blogController {
     {
         List<posts> posts = postService.getAlllistPosts();
         model.addAttribute("posts", posts);
-        return "index";
+        return "edit";
     }
 
-    @GetMapping("/uploads")
-    public ResponseEntity<?> loaduploadsFile(@RequestParam("file") MultipartFile file) throws IOException
-    {
-
-        if (file != null && !file.isEmpty()) {
-            File uploadDir = new File(UPLOAD_DIR);
-            if (!uploadDir.exists())
-                uploadDir.mkdirs();
-
-            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-            Path filePath = Paths.get(UPLOAD_DIR + fileName);
-            Files.write(filePath, file.getBytes());
-            Map<String, String> result = new HashMap<>();
-            result.put("location", "/uploads/" + file.getOriginalFilename());
-            //set the image path to the objects
-//            posts.setImage("/uploads/" + fileName);
-
-            String fPath = UPLOAD_DIR + file.getOriginalFilename();
-//        file.transferTo(new File(filePath));
-            System.out.println("fissssle");
-//        Map<String, String> result = new HashMap<>();
-//        result.put("location","uploads/"+ file.getOriginalFilename());
-            return ResponseEntity.ok(fPath);
-        }
-        return ResponseEntity.status(400).body(Map.of("error", "No file uploaded"));
-    }
+//    @GetMapping("/uploads")
+//    public ResponseEntity<?> loaduploadsFile(@RequestParam("file") MultipartFile file) throws IOException
+//    {
+//
+//        if (file != null && !file.isEmpty()) {
+//            File uploadDir = new File(UPLOAD_DIR);
+//            if (!uploadDir.exists())
+//                uploadDir.mkdirs();
+//
+//            String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+//            Path filePath = Paths.get(UPLOAD_DIR + fileName);
+//            Files.write(filePath, file.getBytes());
+//            Map<String, String> result = new HashMap<>();
+//            result.put("location", "/uploads/" + file.getOriginalFilename());
+//            //set the image path to the objects
+////            posts.setImage("/uploads/" + fileName);
+//
+//            String fPath = UPLOAD_DIR + file.getOriginalFilename();
+////        file.transferTo(new File(filePath));
+//            System.out.println("fissssle");
+////        Map<String, String> result = new HashMap<>();
+////        result.put("location","uploads/"+ file.getOriginalFilename());
+//            return ResponseEntity.ok(fPath);
+//        }
+//        return ResponseEntity.status(400).body(Map.of("error", "No file uploaded"));
+//    }
 
     //Uplaod the file which is added in the text field as well
-    @PostMapping("/uploads")
-    public ResponseEntity<Map<String, String>> uploadsFile(@RequestParam("upload") MultipartFile file) throws IOException
-    {
-        try {
-            // Define the directory to save the file
-            File directory = new File(UPLOAD_DIR);
-            if (!directory.exists()) {
-                directory.mkdirs();
-            }
-
-            // Save the file
-            String filePath = UPLOAD_DIR + file.getOriginalFilename();
-            file.transferTo(new File(filePath));
-
-            // Return the URL of the uploaded file
-            Map<String, String> response = new HashMap<>();
-            response.put("url", "/" + filePath); // Ensure this is accessible in your application
-            return ResponseEntity.ok(response);
-
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
-
-    }
-    // Class for the response JSON
-    public static class ImageResponse {
-        private String url;
-
-        public ImageResponse(String url) {
-            this.url = url;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-    }
+//    @PostMapping("/uploads")
+//    public ResponseEntity<Map<String, String>> uploadsFile(@RequestParam("upload") MultipartFile file) {
+//        try {
+//            // Define the directory to save the file
+//            File directory = new File("src/main/resources/static/uploads/");
+//            if (!directory.exists()) {
+//                directory.mkdirs();
+//            }
+//
+//            // Save the file
+//            String filePath = directory.getAbsolutePath() + "/" + file.getOriginalFilename();
+//            file.transferTo(new File(filePath));
+//
+//            // Return the public URL of the uploaded file
+//            Map<String, String> response = new HashMap<>();
+//            response.put("url", "/uploads/" + file.getOriginalFilename());
+//            return ResponseEntity.ok(response);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace(); // Log the error for debugging
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+//                    .body(Collections.singletonMap("error", "File upload failed!"));
+//        }
+//    }
+//
+//    // Class for the response JSON
+//    public static class ImageResponse {
+//        private String url;
+//
+//        public ImageResponse(String url) {
+//            this.url = url;
+//        }
+//
+//        public String getUrl() {
+//            return url;
+//        }
+//
+//        public void setUrl(String url) {
+//            this.url = url;
+//        }
+//    }
 
     //Showing the post details
     @GetMapping("/postDetails")
