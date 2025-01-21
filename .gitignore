@@ -27,6 +27,7 @@ target/
 /.nb-gradle/
 build/
 src/main/resources/static/uploads
+/uploads
 !**/src/main/**/build/
 !**/src/test/**/build/
 
