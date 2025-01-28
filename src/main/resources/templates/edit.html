@@ -90,7 +90,6 @@
                                     <option value="security">Security</option>
                                     <option value="ai">AI</option>
                                     <option value="programming">Programming</option>
-<!--                                    <option value="income">Issues</option>-->
                                 </select>
                             </div>
                         </div>
@@ -166,11 +165,8 @@
 
                                                             <div class="mb-3">
                                                                 <label for="description" class="form-label">Description</label>
-                                                                <textarea id="postDescription" name="description" class="desc form-control" rows="3" required></textarea>
+                                                                <textarea id="postDescription" name="description" class="desc form-control" rows="3"></textarea>
                                                             </div>
-                                                            <textarea id="editor_id"></textarea>
-                                                            <h3>Processed Output:</h3>
-                                                            <div id="output"></div>
                                                             <div class="mb-3">
                                                                 <label for="category1" class="form-label">Category</label>
                                                                 <div class="col-75">
@@ -208,10 +204,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
     </main>
     <footer class="py-4 bg-light mt-auto">
         <div class="container-fluid px-4">
@@ -228,79 +220,6 @@
 </div>
 </div>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<!--<script>-->
-<!-- // Fetch post data and populate the modal form-->
-<!-- $(document).on('click', '.test', function () {-->
-<!--     var postId = $(this).data('id');-->
-<!--     $.ajax({-->
-<!--         url: '/api/editPost/' + postId,-->
-<!--         type: 'GET',-->
-<!--         success: function (data) {-->
-<!--             $('#postId').val(data.id);-->
-<!--             $('#postTitle').val(data.title);-->
-<!--&lt;!&ndash;             $('#postDescription').val(data.description);&ndash;&gt;-->
-<!--             $('#category1').val(data.category);-->
-<!--             $('#image1').val(data.image);-->
-<!--         },-->
-<!--         error: function () {-->
-<!--             alert('Error fetching post data.');-->
-<!--         }-->
-<!--     });-->
-<!-- });-->
-<!--    -->
-<!--    -->
-<!--</script>-->
-<script>
-    // Initialise TinyMCE for the main form
-<!--    tinymce.init({-->
-<!--        selector: '#description',-->
-<!--        plugins: 'link lists code',-->
-<!--        toolbar: 'undo redo | bold italic underline | link | bullist numlist | code',-->
-<!--    });-->
-
-    // Initialise TinyMCE for the modal form
-    tinymce.init({
-        selector: '#postDescription',
-        plugins: 'link lists code',
-        toolbar: 'undo redo | bold italic underline | link | bullist numlist | code',
-        setup: function (editor) {
-            editor.on('init', function () {
-                // Populate with existing content if needed
-                var existingContent = $('#postDescription').val();
-                editor.setContent(existingContent || '');
-            });
-        }
-    });
-
-    // Fetch post data and populate the modal form
-    $(document).on('click', '.test', function () {
-        var postId = $(this).data('id');
-        $.ajax({
-            url: '/api/editPost/' + postId,
-            type: 'GET',
-            success: function (data) {
-                $('#postId').val(data.id);
-                $('#postTitle').val(data.title);
-                $('#category1').val(data.category);
-
-                // Set content in TinyMCE editor
-                tinymce.get('postDescription').setContent(data.description);
-            },
-            error: function () {
-                alert('Failed to fetch post data. Please try again.');
-            }
-        });
-    });
-
-    // Ensure form submission sends TinyMCE data
-    $(document).on('submit', 'form', function (event) {
-        var editor = tinymce.get('postDescription');
-        if (editor) {
-            $('#postDescription').val(editor.getContent());
-        }
-    });
-</script>
-
 <script src="https://cdn.tiny.cloud/1/clcvvbuvfrfl9byrjv4vqzlg28gilqq1h52742zdxcva4w0m/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     tinymce.init({
@@ -329,17 +248,24 @@
              });
          }
      });
-        tinymce.init({
-      selector: '#editor_id',
-      plugins: 'image link',
-      toolbar: 'bold italic | image link',
-      height: 300
+         // Fetch post data and populate the modal form
+    $(document).on('click', '.test', function () {
+        var postId = $(this).data('id');
+        $.ajax({
+            url: '/api/editPost/' + postId,
+            type: 'GET',
+            success: function (data) {
+                $('#postId').val(data.id);
+                $('#postTitle').val(data.title);
+                $('#category1').val(data.category);
+                // Set content in TinyMCE editor
+                tinymce.get('postDescription').setContent(data.description);
+            },
+            error: function () {
+                alert('Failed to fetch post data. Please try again.');
+            }
+        });
     });
-      let editorContent = tinymce.get('editor_id').getContent();
-            // 1. Remove wrapping <p> tags but keep inner content
-      editorContent = editorContent.replace(/<\/?p[^>]*>/g, "");
-            // 2. Inject the processed content into the output div
-      document.getElementById('output').innerHTML = editorContent;
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="/js/scripts.js"></script>

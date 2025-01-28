@@ -1,305 +1,387 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Dashboard - SB Admin</title>
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-        <link href="/css/styles.css" rel="stylesheet" />
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    </head>
-    <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
-            <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <!-- Navbar Search-->
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                </div>
-            </form>
-            <!-- Navbar-->
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" th:href="@{/api/admin}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
-                            </a>
-                            <a class="nav-link" href="/api/postDetails">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Posts
-                            </a>
-<!--                            <div class="sb-sidenav-menu-heading">Interface</div>-->
-<!--                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">-->
-<!--                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>-->
-<!--                                Layouts-->
-<!--                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>-->
-<!--                            </a>-->
-<!--                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">-->
-<!--                                <nav class="sb-sidenav-menu-nested nav">-->
-<!--                                    <a class="nav-link" href="layout-static.html">Static Navigation</a>-->
-<!--                                    <a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a>-->
-<!--                                </nav>-->
-<!--                            </div>-->
-<!--                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">-->
-<!--                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>-->
-<!--                                Pages-->
-<!--                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>-->
-<!--                            </a>-->
-<!--                            <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">-->
-<!--                                <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">-->
-<!--                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">-->
-<!--                                        Authentication-->
-<!--                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>-->
-<!--                                    </a>-->
-<!--                                    <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">-->
-<!--                                        <nav class="sb-sidenav-menu-nested nav">-->
-<!--                                            <a class="nav-link" href="login.html">Login</a>-->
-<!--                                            <a class="nav-link" href="register.html">Register</a>-->
-<!--                                            <a class="nav-link" href="password.html">Forgot Password</a>-->
-<!--                                        </nav>-->
-<!--                                    </div>-->
-<!--                                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">-->
-<!--                                        Error-->
-<!--                                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>-->
-<!--                                    </a>-->
-<!--                                    <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">-->
-<!--                                        <nav class="sb-sidenav-menu-nested nav">-->
-<!--                                            <a class="nav-link" href="401.html">401 Page</a>-->
-<!--                                            <a class="nav-link" href="404.html">404 Page</a>-->
-<!--                                            <a class="nav-link" href="500.html">500 Page</a>-->
-<!--                                        </nav>-->
-<!--                                    </div>-->
-<!--                                </nav>-->
-<!--                            </div>-->
-<!--                            <div class="sb-sidenav-menu-heading">Addons</div>-->
-<!--                            <a class="nav-link" href="charts.html">-->
-<!--                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>-->
-<!--                                Charts-->
-<!--                            </a>-->
-<!--                            <a class="nav-link" href="tables.html">-->
-<!--                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>-->
-<!--                                Tables-->
-<!--                            </a>-->
-                        </div>
-                    </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
-                    </div>
-                </nav>
-            </div>
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-                        <h1 class="mt-4">Dashboard</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Dashboard</li>
-                        </ol>
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Database</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Artificial Intelligence</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Programming</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Cloud</div>
-                                    <div class="card-footer d-flex align-items-center justify-content-between">
-                                        <a class="small text-white stretched-link" href="#">View Details</a>
-                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-area me-1"></i>
-                                       Posts Details
-                                    </div>
-                                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar me-1"></i>
-                                        Posts Details
-                                    </div>
-                                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-                                </div>
-                            </div>
-                        </div>
-<!--                        <div class="card mb-4">-->
-<!--                            <div class="card-header">-->
-<!--                                <i class="fas fa-table me-1"></i>-->
-<!--                                Posts-->
-<!--                            </div>-->
-<!--                            <div class="card-body">-->
-<!--                                <table id="datatablesSimple" >-->
-<!--                                    <thead>-->
-<!--                                    <tr>-->
-<!--                                        <th>S.N</th>-->
-<!--                                        <th>Title</th>-->
-<!--                                        <th>Description</th>-->
-<!--                                        <th>Category</th>-->
-<!--                                        <th>Created Date</th>-->
-<!--                                        <th>Image</th>-->
-<!--                                        <th>Actions</th>-->
-<!--                                    </tr>-->
-<!--                                    </thead>-->
-<!--                                    <tfoot>-->
-<!--                                    <tr>-->
-<!--                                        <th>S.N</th>-->
-<!--                                        <th>Title</th>-->
-<!--                                        <th>Description</th>-->
-<!--                                        <th>Category</th>-->
-<!--                                        <th>Created Date</th>-->
-<!--                                        <th>Image</th>-->
-<!--                                        <th>Actions</th>-->
-<!--                                    </tr>-->
-<!--                                    </tfoot>-->
-<!--                                    <tbody>-->
-<!--                                    <tr th:each="post , status : ${posts}">-->
-<!--                                        <td th:text="${status.index + 1}"></td>-->
-<!--                                        <td th:text="${post.title}"></td>-->
-<!--                                        <td th:text="${post.description}"></td>-->
-<!--                                        <td th:text="${post.category}"></td>-->
-<!--                                        <td th:text="${post.createdate}"></td>-->
-<!--                                        <td>-->
-<!--                                            &lt;!&ndash; Dynamically load the image &ndash;&gt;-->
-<!--                                            <img th:src="@{${post.image}}" alt="Post Image" style="width: 100px; height: auto;">-->
-<!--                                        </td>-->
-<!--                                        <td>&lt;!&ndash; Call to action buttons &ndash;&gt;-->
-<!--                                            <div class="button-container">-->
-<!--                                                &lt;!&ndash; Edit Button &ndash;&gt;-->
-<!--                                                <a class="btn btn-secondary edit-button test" th:data-id="${post.id}" data-bs-toggle="modal" data-bs-target="#editPostModal">Edit</a>-->
-<!--                                                &lt;!&ndash;                                        <a class="btn btn-secondary edit-button test" data-id="${post.id}"  data-bs-toggle="modal" data-bs-target="#editPostModal">Edit</a>&ndash;&gt;-->
-<!--                                                &lt;!&ndash; Modal &ndash;&gt;-->
-<!--                                                <div class="modal fade" id="editPostModal" tabindex="-1" aria-labelledby="editPostModalLabel" aria-hidden="true">-->
-<!--                                                    <div class="modal-dialog">-->
-<!--                                                        <div class="modal-content">-->
-<!--                                                            &lt;!&ndash; Form Inside Modal &ndash;&gt;-->
-<!--                                                            <form class="card mb-4" th:action="@{/api/editPost}"  method="post" enctype="multipart/form-data">-->
-<!--                                                                <div class="card-header">-->
-<!--                                                                    <i class="fas fa-edit me-1"></i>-->
-<!--                                                                    Edit Post-->
-<!--                                                                </div>-->
-<!--                                                                <div class="card-body">-->
-<!--                                                                    <input type="hidden" id="postId" name="id">-->
-<!--                                                                    <div class="mb-3">-->
-<!--                                                                        <label for="title" class="form-label">Title</label>-->
-<!--                                                                        <input type="text" id="postTitle" name="title" class="form-control" required>-->
-<!--                                                                    </div>-->
 
-<!--                                                                    <div class="mb-3">-->
-<!--                                                                        <label for="description" class="form-label">Description</label>-->
-<!--                                                                        <textarea id="postDescription" name="description" class="form-control" rows="3" required></textarea>-->
-<!--                                                                    </div>-->
-<!--                                                                    <div class="mb-3">-->
-<!--                                                                        <label for="category1" class="form-label">Category</label>-->
-<!--                                                                        <div class="col-75">-->
-<!--                                                                            <select  id = "category1" class="form-control"  name="category">-->
-<!--                                                                                <option value="database">Database</option>-->
-<!--                                                                                <option value="security">Security</option>-->
-<!--                                                                                <option value="ai">AI</option>-->
-<!--                                                                                <option value="programming">Programming</option>-->
-<!--                                                                                &lt;!&ndash;                                    <option value="income">Issues</option>&ndash;&gt;-->
-<!--                                                                            </select>-->
-<!--                                                                        </div>-->
-<!--                                                                    </div>-->
-<!--                                                                    <div class="mb-3">-->
-<!--                                                                        <label for="image1" class="form-label">Description</label>-->
-<!--                                                                        <input type="file" class="form-control" id="image1" name="image1" placeholder="Upload  the image" accept="image/*">-->
-<!--                                                                    </div>-->
-<!--                                                                    <img th:src="@{${post.image}}" alt="Post Image" style="width: 100px; height: auto;">-->
-<!--                                                                    <div class="d-flex justify-content-end">-->
-<!--                                                                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>-->
-<!--                                                                        <button type="submit" class="btn btn-primary">Save Changes</button>-->
-<!--                                                                    </div>-->
-<!--                                                                </div>-->
-<!--                                                            </form>-->
-<!--                                                            &lt;!&ndash; End of Form &ndash;&gt;-->
-<!--                                                        </div>-->
-<!--                                                    </div>-->
-<!--                                                </div>-->
-<!--                                                <a th:href="@{/api/posts/{postid}(postid = ${post.id})}" class="btn btn-danger delete-button">Delete</a>-->
-<!--                                            </div>-->
-<!--                                        </td>-->
-<!--                                    </tr>-->
 
-<!--                                    </tbody>-->
-<!--                                </table>-->
-<!--                            </div>-->
-<!--                        </div>-->
-                    </div>
-                </main>
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
-            </div>
+<!-- Basic -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<!-- Mobile Metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Site Metas -->
+<title>Infotechnocrats: Navigating the Future of Tech and Innovation</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- Site Icons -->
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+<!-- Design fonts -->
+<link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
+
+<!-- Bootstrap core CSS -->
+<link href="css/bootstrap.css" rel="stylesheet">
+
+<!-- FontAwesome Icons core CSS -->
+<link href="css/font-awesome.min.css" rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link href="style.css" rel="stylesheet">
+
+<!-- Responsive styles for this template -->
+<link href="css/responsive.css" rel="stylesheet">
+
+<!-- Colors for this template -->
+<link href="css/colors.css" rel="stylesheet">
+
+<!-- Version Garden CSS for this template -->
+<link href="css/version/garden.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+
+<div id="wrapper">
+    <div class="collapse top-search" id="collapseExample">
+        <div class="card card-block">
+            <div class="newsletter-widget text-center">
+                <form class="form-inline">
+                    <input type="text" class="form-control" placeholder="What you are looking for?">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                </form>
+            </div><!-- end newsletter -->
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="/js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="/assets/demo/chart-area-demo.js"></script>
-        <script src="/assets/demo/chart-bar-demo.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-        <script src="/js/datatables-simple-demo.js"></script>
-    </body>
+    </div><!-- end top-search -->
+
+    <div class="topbar-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6 hidden-xs-down">
+                    <div class="topsocial">
+                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>
+                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Youtube"><i class="fa fa-youtube"></i></a>
+                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i class="fa fa-pinterest"></i></a>
+                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
+                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Flickr"><i class="fa fa-flickr"></i></a>
+                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i class="fa fa-instagram"></i></a>
+                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Google+"><i class="fa fa-google-plus"></i></a>
+                    </div><!-- end social -->
+                </div><!-- end col -->
+
+                <div class="col-lg-4 hidden-md-down">
+                </div><!-- end col -->
+
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    <div class="topsearch text-right">
+                        <a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-search"></i> Search</a>
+                    </div><!-- end search -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end header-logo -->
+    </div><!-- end topbar -->
+
+    <div class="header-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="logo">
+                        <a href="index.html"><img src="images/logoo.png" width="100" height="100" alt="Technocrats"></a>
+                    </div><!-- end logo -->
+                </div>
+            </div><!-- end row -->
+        </div><!-- end header-logo -->
+    </div><!-- end header -->
+
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-inverse navbar-toggleable-md">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Forest Timemenu" aria-controls="Forest Timemenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-md-center" id="Forest Timemenu">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link color-green-hover" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link color-green-hover" href="garden-category.html">Database</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link color-green-hover" href="garden-category.html">Security</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link color-green-hover" href="garden-category.html">AI</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link color-green-hover" href="garden-category.html">Security</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link color-green-hover" href="garden-contact.html">Programming</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div><!-- end container -->
+    </header><!-- end header -->
+
+    <section class="section first-section">
+        <div class="container-fluid">
+            <div class="masonry-blog clearfix">
+                <div class="left-side">
+                    <div class="masonry-box post-media">
+                        <img src="images/db.png" width="534" height="699" alt="" class="img-fluid">
+                        <div class="shadoweffect">
+                            <div class="shadow-desc">
+                                <div class="blog-meta">
+                                    <span class="bg-aqua"><a href="blog-category-01.html" title="">Database</a></span>
+                                    <h4>
+                                        <a href="garden-single.html" >Cassandra: NoSql Database</a>
+                                    </h4>
+                                    <small><a href="garden-single.html" title="">21 August, 2023</a></small>
+                                    <small><a href="#" title="">by Sudip</a></small>
+                                </div><!-- end meta -->
+                            </div><!-- end shadow-desc -->
+                        </div><!-- end shadow -->
+                    </div><!-- end post-media -->
+                </div><!-- end left-side -->
+
+                <div class="center-side">
+                    <div class="masonry-box post-media">
+                        <img src="images/db.png" width="534" height="699" alt="" class="img-fluid">
+                        <div class="shadoweffect">
+                            <div class="shadow-desc">
+                                <div class="blog-meta">
+                                    <span class="bg-aqua"><a href="blog-category-01.html" title="">Programming</a></span>
+                                    <h4>
+                                        <a href="garden-single.html"> Java Features respective to it versions</a>
+                                    </h4>
+                                    <small><a href="garden-single.html" title="">1 September, 2023</a></small>
+                                    <small><a href="#" title="">by Sudip</a></small>
+                                </div><!-- end meta -->
+                            </div><!-- end shadow-desc -->
+                        </div><!-- end shadow -->
+                    </div><!-- end post-media -->
+                </div><!-- end left-side -->
+
+                <div class="right-side hidden-md-down">
+                    <div class="masonry-box post-media">
+                        <img src="images/db.png" width="534" height="699" alt="" class="img-fluid">
+                        <div class="shadoweffect">
+                            <div class="shadow-desc">
+                                <div class="blog-meta">
+                                    <span class="bg-aqua"><a href="blog-category-01.html" title="">AI</a></span>
+                                    <h4><a href="garden-single.html" title="">DeepSeek: Preview</a></h4>
+                                    <small><a href="garden-single.html" title="">25 Jan, 2025</a></small>
+                                    <small><a href="#" title="">by Sudip</a></small>
+                                </div><!-- end meta -->
+                            </div><!-- end shadow-desc -->
+                        </div><!-- end shadow -->
+                    </div><!-- end post-media -->
+                </div><!-- end right-side -->
+            </div><!-- end masonry -->
+        </div>
+    </section>
+
+    <section class="section wb">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                    <div class="page-wrapper">
+                        <div class="blog-list clearfix">
+                            <div  th:each="post : ${posts}" class="blog-box row">
+                                <div class="col-md-4">
+                                    <div class="post-media">
+                                        <a href="garden-single.html" title="">
+                                            <img src="upload/garden_sq_01.jpg" alt="" class="img-fluid">
+                                            <div class="hovereffect"></div>
+                                        </a>
+                                    </div><!-- end media -->
+                                </div><!-- end col -->
+
+                                <div class="blog-meta big-meta col-md-8">
+                                    <span class="bg-aqua"><a href="garden-category.html" th:text="${post.category}"></a></span>
+                                    <h4><a href="garden-single.html" th:text="${post.title}" title=""></a></h4>
+                                    <p>Aenean interdum arcu blandit, vehicula magna non, placerat elit. Mauris et pharetratortor. Suspendissea sodales urna. In at augue elit. Vivamus enim nibh, maximus ac felis nec, maximus tempor odio.</p>
+                                    <small><a href="garden-category.html" title=""><i class="fa fa-eye"></i> 2023</a></small>
+                                    <small><a href="garden-single.html" title=""> August, 2023</a></small>
+                                    <small><a href="#" title="">by Sudip</a></small>
+                                </div><!-- end meta -->
+                            </div><!-- end blog-box -->
+
+
+<!--                            <div  class="blog-box row">-->
+<!--                                <div class="col-md-4">-->
+<!--                                    <div class="post-media">-->
+<!--                                        <a href="garden-single.html" title="">-->
+<!--                                            <img src="upload/garden_sq_02.jpg" alt="" class="img-fluid">-->
+<!--                                            <div class="hovereffect"></div>-->
+<!--                                        </a>-->
+<!--                                    </div>&lt;!&ndash; end media &ndash;&gt;-->
+<!--                                </div>&lt;!&ndash; end col &ndash;&gt;-->
+
+                            <hr class="invis">
+                        </div><!-- end blog-list -->
+                    </div><!-- end page-wrapper -->
+
+                    <hr class="invis">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-start">
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div><!-- end col -->
+                    </div><!-- end row -->
+                </div><!-- end col -->
+
+                <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                    <div class="sidebar">
+                        <div class="widget">
+                            <h2 class="widget-title">Search</h2>
+                            <form class="form-inline search-form">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Search on the site">
+                                </div>
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div><!-- end widget -->
+
+                        <div class="widget">
+                            <h2 class="widget-title">Recent Posts</h2>
+                            <div class="blog-list-widget">
+                                <div class="list-group">
+                                    <a href="garden-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
+                                        <div class="w-100 justify-content-between">
+                                            <img src="upload/garden_sq_09.jpg" alt="" class="img-fluid float-left">
+                                            <h5 class="mb-1">5 Beautiful buildings you need to before dying</h5>
+                                            <small>12 Jan, 2016</small>
+                                        </div>
+                                    </a>
+
+                                    <a href="garden-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
+                                        <div class="w-100 justify-content-between">
+                                            <img src="upload/garden_sq_06.jpg" alt="" class="img-fluid float-left">
+                                            <h5 class="mb-1">Let's make an introduction for creative life</h5>
+                                            <small>11 Jan, 2016</small>
+                                        </div>
+                                    </a>
+
+                                    <a href="garden-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
+                                        <div class="w-100 last-item justify-content-between">
+                                            <img src="upload/garden_sq_02.jpg" alt="" class="img-fluid float-left">
+                                            <h5 class="mb-1">Did you see the most beautiful sea in the world?</h5>
+                                            <small>07 Jan, 2016</small>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div><!-- end blog-list -->
+                        </div><!-- end widget -->
+
+                        <div class="widget">
+                            <h2 class="widget-title">Advertising</h2>
+                            <div class="banner-spot clearfix">
+                                <div class="banner-img">
+                                    <img src="upload/banner_04.jpg" alt="" class="img-fluid">
+                                </div><!-- end banner-img -->
+                            </div><!-- end banner -->
+                        </div><!-- end widget -->
+
+                        <div class="widget">
+                            <h2 class="widget-title">Instagram Feed</h2>
+                            <div class="instagram-wrapper clearfix">
+                                <a href="#"><img src="upload/garden_sq_01.jpg" alt="" class="img-fluid"></a>
+                                <a href="#"><img src="upload/garden_sq_02.jpg" alt="" class="img-fluid"></a>
+                                <a href="#"><img src="upload/garden_sq_03.jpg" alt="" class="img-fluid"></a>
+                                <a href="#"><img src="upload/garden_sq_04.jpg" alt="" class="img-fluid"></a>
+                                <a href="#"><img src="upload/garden_sq_05.jpg" alt="" class="img-fluid"></a>
+                                <a href="#"><img src="upload/garden_sq_06.jpg" alt="" class="img-fluid"></a>
+                                <a href="#"><img src="upload/garden_sq_07.jpg" alt="" class="img-fluid"></a>
+                                <a href="#"><img src="upload/garden_sq_08.jpg" alt="" class="img-fluid"></a>
+                                <a href="#"><img src="upload/garden_sq_09.jpg" alt="" class="img-fluid"></a>
+                            </div><!-- end Instagram wrapper -->
+                        </div><!-- end widget -->
+
+                        <div class="widget">
+                            <h2 class="widget-title">Popular Categories</h2>
+                            <div class="link-widget">
+                                <ul>
+                                    <li><a href="#">Gardening <span>(21)</span></a></li>
+                                    <li><a href="#">Outdoor Living <span>(15)</span></a></li>
+                                    <li><a href="#">Indoor Living <span>(31)</span></a></li>
+                                    <li><a href="#">Shopping Guides <span>(22)</span></a></li>
+                                    <li><a href="#">Pool Design <span>(66)</span></a></li>
+                                </ul>
+                            </div><!-- end link-widget -->
+                        </div><!-- end widget -->
+                    </div><!-- end sidebar -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <div class="widget">
+                        <div class="footer-text text-center">
+                            <a href="index.html"><img src="images/version/garden-footer-logo.png" alt="" class="img-fluid"></a>
+                            <p>Forest Time is a personal blog for handcrafted, cameramade photography content, fashion styles from independent creatives around the world.</p>
+                            <div class="social">
+                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>
+                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i class="fa fa-instagram"></i></a>
+                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Google Plus"><i class="fa fa-google-plus"></i></a>
+                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i class="fa fa-pinterest"></i></a>
+                            </div>
+
+                            <hr class="invis">
+
+                            <div class="newsletter-widget text-center">
+                                <form class="form-inline">
+                                    <input type="text" class="form-control" placeholder="Enter your email address">
+                                    <button type="submit" class="btn btn-primary">Subscribe <i class="fa fa-envelope-open-o"></i></button>
+                                </form>
+                            </div><!-- end newsletter -->
+                        </div><!-- end footer-text -->
+                    </div><!-- end widget -->
+                </div><!-- end col -->
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <br>
+                    <br>
+                    <div class="copyright">&copy; Forest Time. Design: <a href="http://html.design">HTML Design</a>.</div>
+                </div>
+            </div>
+        </div><!-- end container -->
+    </footer><!-- end footer -->
+
+    <div class="dmtop">Scroll to Top</div>
+
+</div><!-- end wrapper -->
+
+<!-- Core JavaScript
+================================================== -->
+<script src="js/jquery.min.js"></script>
+<script src="js/tether.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/custom.js"></script>
+
+</body>
 </html>
