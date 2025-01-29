@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.example.demo.Service.postService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,4 +25,12 @@ public class frontEndController {
         model.addAttribute("posts", posts);
         return "index";
     }
+    @GetMapping(value = "/details")
+    public String postdetails(@RequestParam(value = "postid") String id, Model model) {
+        int idd = Integer.parseInt(id);
+        posts posts =  postService.getPostById(idd);
+        model.addAttribute("posts", posts);
+        return "garden-single";  // This returns the 'garden-single' view with the post data
+    }
+
 }
