@@ -92,7 +92,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="logo">
-                            <a href="index.html"><img src="images/version/garden-logo.png" alt=""></a>
+                            <a href="index.html"><img src="images/logoo.png" width="100" height="100" alt="Technocrats"></a>
                         </div><!-- end logo -->
                     </div>
                 </div><!-- end row -->
@@ -108,22 +108,22 @@
                     <div class="collapse navbar-collapse justify-content-md-center" id="Forest Timemenu">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link color-green-hover" href="index.html">Home</a>
+                                <a class="nav-link color-green-hover" th:href="@{/test}">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link color-green-hover" href="garden-category.html">Gardening</a>
+                                <a class="nav-link color-green-hover"  th:href="@{/test}">Database</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link color-green-hover" href="garden-category.html">Outdoor Living</a>
+                                <a class="nav-link color-green-hover"  th:href="@{/test}">Security</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link color-green-hover" href="garden-category.html">Indoor Living</a>
+                                <a class="nav-link color-green-hover"  th:href="@{/test}">AI</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link color-green-hover" href="garden-category.html">Shopping Guides</a>
-                            </li>  
+                                <a class="nav-link color-green-hover"  th:href="@{/test}">Security</a>
+                            </li>
                             <li class="nav-item">
-                                <a class="nav-link color-green-hover" href="garden-contact.html">Contact</a>
+                                <a class="nav-link color-green-hover"  th:href="@{/test}">Programming</a>
                             </li>
                         </ul>
                     </div>
@@ -153,12 +153,12 @@
                     <div  th:each="post : ${posts}"  class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                         <div class="page-wrapper">
                             <div class="blog-title-area">
-                                <span class="color-green"><a href="garden-category.html" th:text="${post.category}"></a></span>
+                                <span class="color-green"><a href="index.html" th:text="${post.category}"></a></span>
 
                                 <h3 th:text="${post.title}"></h3>
 
                                 <div class="blog-meta big-meta">
-                                    <small><a href="garden-single.html" title="">21 July, 2017</a></small>
+                                    <small><a href="index.html" title="">21 July, 2017</a></small>
                                     <small><a href="blog-author.html" title="">by Sudip</a></small>
                                     <small><a href="#" title=""><i class="fa fa-eye"></i> 2344</a></small>
                                 </div><!-- end meta -->
@@ -182,10 +182,10 @@
                             <div class="blog-title-area">
                                 <div class="tag-cloud-single">
                                     <span>Tags</span>
-                                    <small><a href="#" title="">lifestyle</a></small>
-                                    <small><a href="#" title="">colorful</a></small>
+                                    <small><a href="#" title="">Security</a></small>
+                                    <small><a href="#" title="">Database</a></small>
                                     <small><a href="#" title="">trending</a></small>
-                                    <small><a href="#" title="">another tag</a></small>
+                                    <small><a href="#" title="">Programming</a></small>
                                 </div><!-- end meta -->
 
                                 <div class="post-sharing">
@@ -197,24 +197,24 @@
                                 </div><!-- end post-sharing -->
                             </div><!-- end title -->
 
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="banner-spot clearfix">
-                                        <div class="banner-img">
-                                            <img src="upload/banner_01.jpg" alt="" class="img-fluid">
-                                        </div><!-- end banner-img -->
-                                    </div><!-- end banner -->
-                                </div><!-- end col -->
-                            </div><!-- end row -->
+<!--                            <div class="row">-->
+<!--                                <div class="col-lg-12">-->
+<!--                                    <div class="banner-spot clearfix">-->
+<!--                                        <div class="banner-img">-->
+<!--                                            <img src="upload/banner_01.jpg" alt="" class="img-fluid">-->
+<!--                                        </div>&lt;!&ndash; end banner-img &ndash;&gt;-->
+<!--                                    </div>&lt;!&ndash; end banner &ndash;&gt;-->
+<!--                                </div>&lt;!&ndash; end col &ndash;&gt;-->
+<!--                            </div>&lt;!&ndash; end row &ndash;&gt;-->
 
                             <hr class="invis1">
 
                             <div class="custombox authorbox clearfix">
                                 <h4 class="small-title">About author</h4>
                                 <div class="row">
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                        <img src="upload/author.jpg" alt="" class="img-fluid rounded-circle"> 
-                                    </div><!-- end col -->
+<!--                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">-->
+<!--                                        <img src="upload/author.jpg" alt="" class="img-fluid rounded-circle"> -->
+<!--                                    </div>&lt;!&ndash; end col &ndash;&gt;-->
 
                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
                                         <h4><a href="#">Sudip</a></h4>
@@ -241,7 +241,7 @@
                                     <div class="col-lg-6">
                                         <div class="blog-box">
                                             <div class="post-media">
-                                                <a href="garden-single.html" title="">
+                                                <a href="index.html" title="">
                                                     <img src="upload/garden_single_03.jpg" alt="" class="img-fluid">
                                                     <div class="hovereffect">
                                                         <span class=""></span>
@@ -249,7 +249,7 @@
                                                 </a>
                                             </div><!-- end media -->
                                             <div class="blog-meta">
-                                                <h4><a href="garden-single.html" title="">We are guests of ABC Design Studio</a></h4>
+                                                <h4><a href="index.html" title="">We are guests of ABC Design Studio</a></h4>
                                                 <small><a href="blog-category-01.html" title="">Trends</a></small>
                                                 <small><a href="blog-category-01.html" title="">21 July, 2017</a></small>
                                             </div><!-- end meta -->
@@ -259,7 +259,7 @@
                                     <div class="col-lg-6">
                                         <div class="blog-box">
                                             <div class="post-media">
-                                                <a href="garden-single.html" title="">
+                                                <a href="index.html" title="">
                                                     <img src="upload/garden_single_02.jpg" alt="" class="img-fluid">
                                                     <div class="hovereffect">
                                                         <span class=""></span>
@@ -267,7 +267,7 @@
                                                 </a>
                                             </div><!-- end media -->
                                             <div class="blog-meta">
-                                                <h4><a href="garden-single.html" title="">Nostalgia at work with family</a></h4>
+                                                <h4><a href="index.html" title="">Nostalgia at work with family</a></h4>
                                                 <small><a href="blog-category-01.html" title="">News</a></small>
                                                 <small><a href="blog-category-01.html" title="">20 July, 2017</a></small>
                                             </div><!-- end meta -->
@@ -314,7 +314,7 @@
                                 <h2 class="widget-title">Recent Posts</h2>
                                 <div class="blog-list-widget">
                                     <div class="list-group">
-                                        <a href="garden-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
+                                        <a href="index.html" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
                                                 <img src="upload/garden_sq_09.jpg" alt="" class="img-fluid float-left">
                                                 <h5 class="mb-1">5 Beautiful buildings you need to before dying</h5>
@@ -325,29 +325,6 @@
                                 </div><!-- end blog-list -->
                             </div><!-- end widget -->
 
-                            <!--                        <div class="widget">-->
-                            <!--                            <h2 class="widget-title">Advertising</h2>-->
-                            <!--                            <div class="banner-spot clearfix">-->
-                            <!--                                <div class="banner-img">-->
-                            <!--                                    <img src="upload/banner_04.jpg" alt="" class="img-fluid">-->
-                            <!--                                </div>&lt;!&ndash; end banner-img &ndash;&gt;-->
-                            <!--                            </div>&lt;!&ndash; end banner &ndash;&gt;-->
-                            <!--                        </div>&lt;!&ndash; end widget &ndash;&gt;-->
-
-                            <!--                        <div class="widget">-->
-                            <!--                            <h2 class="widget-title">Instagram Feed</h2>-->
-                            <!--                            <div class="instagram-wrapper clearfix">-->
-                            <!--                                <a href="#"><img src="upload/garden_sq_01.jpg" alt="" class="img-fluid"></a>-->
-                            <!--                                <a href="#"><img src="upload/garden_sq_02.jpg" alt="" class="img-fluid"></a>-->
-                            <!--                                <a href="#"><img src="upload/garden_sq_03.jpg" alt="" class="img-fluid"></a>-->
-                            <!--                                <a href="#"><img src="upload/garden_sq_04.jpg" alt="" class="img-fluid"></a>-->
-                            <!--                                <a href="#"><img src="upload/garden_sq_05.jpg" alt="" class="img-fluid"></a>-->
-                            <!--                                <a href="#"><img src="upload/garden_sq_06.jpg" alt="" class="img-fluid"></a>-->
-                            <!--                                <a href="#"><img src="upload/garden_sq_07.jpg" alt="" class="img-fluid"></a>-->
-                            <!--                                <a href="#"><img src="upload/garden_sq_08.jpg" alt="" class="img-fluid"></a>-->
-                            <!--                                <a href="#"><img src="upload/garden_sq_09.jpg" alt="" class="img-fluid"></a>-->
-                            <!--                            </div>&lt;!&ndash; end Instagram wrapper &ndash;&gt;-->
-                            <!--                        </div>&lt;!&ndash; end widget &ndash;&gt;-->
 
                             <div class="widget">
                                 <h2 class="widget-title">Popular Categories</h2>
@@ -372,8 +349,8 @@
                     <div class="col-lg-8 offset-lg-2">
                         <div class="widget">
                             <div class="footer-text text-center">
-                                <a href="index.html"><img src="images/version/garden-footer-logo.png" alt="" class="img-fluid"></a>
-                                <p>Forest Time is a personal blog for handcrafted, cameramade photography content, fashion styles from independent creatives around the world.</p>
+                                <a href="index.html"><img src="images/logoo.png" alt="" class="img-fluid"></a>
+                                <p>Infotechnocrats: Navigating the Future of Tech and Innovation</p>
                                 <div class="social">
                                     <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>              
                                     <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i class="fa fa-twitter"></i></a>
@@ -398,7 +375,7 @@
                     <div class="col-md-12 text-center">
                         <br>
                         <br>
-                        <div class="copyright">&copy; Forest Time. Design: <a href="http://html.design">HTML Design</a>.</div>
+                        <div class="copyright">&copy; BLOG Sudip: <a href="#"></a>.</div>
                     </div>
                 </div>
             </div><!-- end container -->
