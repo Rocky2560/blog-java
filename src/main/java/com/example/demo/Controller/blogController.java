@@ -27,7 +27,7 @@ import java.util.Map;
 @RequestMapping("/api")
 public class blogController {
 
-    private static final String UPLOAD_DIR = "src/main/resources/static/uploads/";
+    private static final String UPLOAD_DIR = "uploads/";
     @Autowired
     postService postService;
 
@@ -45,9 +45,8 @@ public class blogController {
     @GetMapping("/postDetails")
     public String  postDetails(@RequestParam(value = "id", required = false) Long id, Model model)
     {
-            List<posts> posts = postService.getAlllistPosts();
-            model.addAttribute("posts", posts);
-
+        List<posts> posts = postService.getAlllistPosts();
+        model.addAttribute("posts", posts);
         return "edit";
     }
 
@@ -77,10 +76,8 @@ public class blogController {
             throw new RuntimeException(e);
         }
 //        postService.saveorUpdate(posts);
-        return "index";
+        return "edit    ";
     }
-
-
 
     @GetMapping("editPost/{id}")
     public  ResponseEntity<posts>  editPost(@PathVariable("id") int id, Model model)
@@ -99,9 +96,9 @@ public class blogController {
 
         try {
             posts posts = postService.getPostById(id);
-            posts.setTitle(title);
-            posts.setDescription(description);
-            posts.setCategory(category);
+//            posts.setTitle(title);
+//            posts.setDescription(description);
+//            posts.setCategory(category);
             postService.saveorUpdate(posts, image);
             return "redirect:/api/postDetails";
         } catch (Exception e) {

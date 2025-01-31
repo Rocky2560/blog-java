@@ -19,7 +19,7 @@
     @Service
     public class postService {
 
-        private static final String UPLOAD_DIR = "src/main/resources/static/uploads/";
+        private static final String UPLOAD_DIR = "uploads/";
         @Autowired
         userpostsRepository userpostsRepository;
 

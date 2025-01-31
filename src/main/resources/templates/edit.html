@@ -223,49 +223,69 @@
 <script src="https://cdn.tiny.cloud/1/clcvvbuvfrfl9byrjv4vqzlg28gilqq1h52742zdxcva4w0m/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
     tinymce.init({
-         selector: '.desc',
-         width: '100%',         // set width to 100% of the container
-         height: '600px',
-         plugins: 'image code',
-         toolbar: 'undo redo | link image | code',
-         automatic_uploads: true,
-            // Retrieve TinyMCE content
-         images_upload_handler: function (blobInfo, success, failure) {
-             const formData = new FormData();
-             formData.append('file', blobInfo.blob(), blobInfo.filename());
+     selector: '.desc',
+     width: '100%',
+     height: '600px',
+     plugins: 'image code',
+     toolbar: 'undo redo | link image | code',
+     automatic_uploads: true,
+     images_upload_handler: function (blobInfo, success, failure) {
+         const formData = new FormData();
+         formData.append('file', blobInfo.blob(), blobInfo.filename());
 
-             fetch('http://localhost:8082/api/images/upload', {
-                 method: 'POST',
-                 body: formData
-             })
-             .then(response => response.json())
-             .then(data => {
-                 success(data.url); // Use the returned URL
-             })
-             .catch(error => {
-                 console.error('Image upload failed:', error);
-                 failure('Image upload failed');
+         fetch('http://localhost:8082/api/images/upload', {
+             method: 'POST',
+             body: formData
+         })
+         .then(response => response.json())
+         .then(data => {
+             success(data.url); // Use the returned URL
+         })
+         .catch(error => {
+             console.error('Image upload failed:', error);
+             failure('Image upload failed');
+         });
+     }
+ });
+
+ // Reinitialize TinyMCE inside the edit modal
+ $(document).on('click', '.test', function () {
+     var postId = $(this).data('id');
+
+     $.ajax({
+         url: '/api/editPost/' + postId,
+         type: 'GET',
+         success: function (data) {
+             $('#postId').val(data.id);
+             $('#postTitle').val(data.title);
+             $('#category1').val(data.category);
+
+             // Remove TinyMCE instance if already initialized
+             if (tinymce.get('postDescription')) {
+                 tinymce.get('postDescription').remove();
+             }
+
+             // Reinitialize TinyMCE inside the modal
+             tinymce.init({
+                 selector: '#postDescription', // Ensure it targets the edit form
+                 width: '100%',
+                 height: '600px',
+                 plugins: 'image code',
+                 toolbar: 'undo redo | link image | code',
+                 automatic_uploads: true,
+                 setup: function (editor) {
+                     editor.on('init', function () {
+                         editor.setContent(data.description); // Set content
+                     });
+                 }
              });
+         },
+         error: function () {
+             alert('Failed to fetch post data. Please try again.');
          }
      });
-         // Fetch post data and populate the modal form
-    $(document).on('click', '.test', function () {
-        var postId = $(this).data('id');
-        $.ajax({
-            url: '/api/editPost/' + postId,
-            type: 'GET',
-            success: function (data) {
-                $('#postId').val(data.id);
-                $('#postTitle').val(data.title);
-                $('#category1').val(data.category);
-                // Set content in TinyMCE editor
-                tinymce.get('postDescription').setContent(data.description);
-            },
-            error: function () {
-                alert('Failed to fetch post data. Please try again.');
-            }
-        });
-    });
+ });
+
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="/js/scripts.js"></script>
