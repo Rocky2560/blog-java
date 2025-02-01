@@ -53,9 +53,10 @@ public class blogController {
 
     //Getting the id for the edit process
     @GetMapping("/posts/{postid}")
-            public void deletePost(@PathVariable ("postid") int postid)
+            public String deletePost(@PathVariable ("postid") int postid)
     {
         postService.deletePosts(postid);
+        return "redirect:/api/postDetails";
     }
 
     //Posting changes via id for the edit process

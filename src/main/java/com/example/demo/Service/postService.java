@@ -1,5 +1,6 @@
     package com.example.demo.Service;
 
+    import com.example.demo.Repository.MyCustomRepository;
     import com.example.demo.Repository.userpostsRepository;
     import com.example.demo.model.posts;
     import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,13 @@
         {
             return userpostsRepository.findById((int) id).get();
         }
+
+
+
+            public List<posts> getPostsByCategory(String category) {
+                return userpostsRepository.findByCategory(category);
+            }
+
 
         public void saveorUpdate(posts posts, MultipartFile imagefile) throws IOException
         {
