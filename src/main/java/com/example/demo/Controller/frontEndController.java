@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.example.demo.Service.postService;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,12 @@ public class frontEndController {
         return "index";
     }
 
+    @GetMapping(value = "/redirect")
+    public String redirect()
+    {
+        return "index";
+    }
+
     @GetMapping(value = "/details")
     public String postdetails(@RequestParam(value = "postid") String id, Model model) {
         int idd = Integer.parseInt(id);
@@ -36,10 +43,12 @@ public class frontEndController {
         return "garden-single";  // This returns the 'garden-single' view with the post data
     }
 
-    @GetMapping("/categoryDetails/{category}")
-    public ResponseEntity<List<posts>> getPostsByCategory(@PathVariable String category) {
-        System.out.println(category);
-        return ResponseEntity.ok(postService.getPostsByCategory(category));
+    @GetMapping(value = "/categoryDetails/{category}")
+    public String getPostsByCategory(@PathVariable String category, Model model, RedirectAttributes redirectAttributes) {
+
+        List<posts>  posts = postService.getPostsByCategory(category);
+        redirectAttributes.addFlashAttribute("posts", posts);
+        return "redirect:/redirect";
     }
 
 //    @GetMapping(value = "/categoryDetails")

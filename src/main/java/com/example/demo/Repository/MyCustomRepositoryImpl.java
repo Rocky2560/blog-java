@@ -16,7 +16,6 @@ public class MyCustomRepositoryImpl implements MyCustomRepository {
         TypedQuery<posts> query = entityManager.createQuery(
                 "SELECT m FROM posts m WHERE m.category = :category", posts.class);
         query.setParameter("category", category);
-        System.out.println("tesdt");
         return query.getResultList();
     }
 }

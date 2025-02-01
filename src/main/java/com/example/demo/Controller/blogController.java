@@ -39,8 +39,6 @@ public class blogController {
         model.addAttribute("posts", posts);
         return "edit";
     }
-
-
     //Showing the post details
     @GetMapping("/postDetails")
     public String  postDetails(@RequestParam(value = "id", required = false) Long id, Model model)
@@ -69,9 +67,6 @@ public class blogController {
             posts.setTitle(title);
             posts.setDescription(description);
             posts.setCategory(category);
-//            System.out.println("hello");
-//            posts.setImage(image);
-
             postService.saveorUpdate(posts, image);
         } catch (Exception e) {
             throw new RuntimeException(e);
