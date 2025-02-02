@@ -72,7 +72,7 @@ public class blogController {
             throw new RuntimeException(e);
         }
 //        postService.saveorUpdate(posts);
-        return "edit    ";
+        return "edit";
     }
 
     @GetMapping("editPost/{id}")
