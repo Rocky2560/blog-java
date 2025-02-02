@@ -4,6 +4,9 @@
     import com.example.demo.Repository.userpostsRepository;
     import com.example.demo.model.posts;
     import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.data.domain.Page;
+    import org.springframework.data.domain.PageRequest;
+    import org.springframework.data.domain.Pageable;
     import org.springframework.stereotype.Service;
     import org.springframework.web.bind.annotation.PathVariable;
     import org.springframework.web.multipart.MultipartFile;
@@ -37,10 +40,13 @@
         }
 
 
-
-            public List<posts> getPostsByCategory(String category) {
-                return userpostsRepository.findByCategory(category);
-            }
+        public Page<posts> getPostsByCategory(String category, int page, int size) {
+            Pageable pageable = PageRequest.of(page, size);
+            return (Page<posts>) userpostsRepository.findByCategory(category, pageable);
+        }
+//            public List<posts> getPostsByCategory(String category) {
+//                return userpostsRepository.findByCategory(category);
+//            }
 
 
         public void saveorUpdate(posts posts, MultipartFile imagefile) throws IOException
@@ -69,10 +75,4 @@
             userpostsRepository.deleteById(id);
         }
 
-
-
-    //    public void update (posts posts, int id)
-    //    {
-    //        userpostsRepository.save(posts);
-    //    }
     }

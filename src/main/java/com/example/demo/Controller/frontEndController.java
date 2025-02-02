@@ -3,6 +3,9 @@ package com.example.demo.Controller;
 import com.example.demo.Service.postService;
 import com.example.demo.model.posts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +25,8 @@ public class frontEndController {
     postService postService;
 
     @GetMapping(value = "/test")
-    public String index(Model model)
+    public String index(Model model,  @RequestParam(defaultValue = "0") int page,
+                        @RequestParam(defaultValue = "5") int size)
     {
         List<posts> posts = postService.getAlllistPosts();
         model.addAttribute("posts", posts);
@@ -35,8 +39,9 @@ public class frontEndController {
         return "index";
     }
 
-    @GetMapping(value = "/details")
-    public String postdetails(@RequestParam(value = "postid") String id, Model model) {
+    @GetMapping(value = "/details" )
+    public String postdetails(@RequestParam(value = "postid") String id, Model model,  @RequestParam(defaultValue = "0") int page,
+                              @RequestParam(defaultValue = "5") int size) {
         int idd = Integer.parseInt(id);
         posts posts =  postService.getPostById(idd);
         model.addAttribute("posts", posts);
@@ -44,18 +49,15 @@ public class frontEndController {
     }
 
     @GetMapping(value = "/categoryDetails/{category}")
-    public String getPostsByCategory(@PathVariable String category, Model model, RedirectAttributes redirectAttributes) {
+    public String getPostsByCategory(@PathVariable String category, Model model, RedirectAttributes redirectAttributes,  @RequestParam(defaultValue = "0") int page,
+                                     @RequestParam(defaultValue = "5") int size) {
 
-        List<posts>  posts = postService.getPostsByCategory(category);
-        redirectAttributes.addFlashAttribute("posts", posts);
-        return "redirect:/redirect";
+        Page<posts> postsPage = postService.getPostsByCategory(category, page, size);
+        model.addAttribute("posts", postsPage.getContent());  // Posts for current page
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", postsPage.getTotalPages());
+
+        return "redirect:/redirect"; // Return to Thymeleaf template
     }
-
-//    @GetMapping(value = "/categoryDetails")
-//    public String categorydetails(@RequestParam(value = "category") String category, Model model) {
-//        posts posts = (com.example.demo.model.posts) postService.getPostsByCategory(category);
-//        model.addAttribute("posts", posts);
-//        return "garden-single";  // This returns the 'garden-single' view with the post data
-//    }
 
 }

@@ -231,14 +231,24 @@
                     <div class="row">
                         <div class="col-md-12">
                             <nav aria-label="Page navigation">
+                                <!-- Pagination Controls -->
+                                <a class="page-link" th:if="${(currentPage ?: 0) > 0}"
+                                   th:href="@{/posts/category/{category}(category=${category}, page=${(currentPage ?: 0) - 1}, size=5)}">Previous</a>
+
                                 <ul class="pagination justify-content-start">
-                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
+                                <li class="page-link" th:text="'Page ' + (${(currentPage ?: 0) + 1}) + ' of ' + (${totalPages ?: 1})"></li>
                                 </ul>
+                                <a class="page-link" th:if="${(currentPage ?: 0) + 1 < (totalPages ?: 1)}"
+                                   th:href="@{/posts/category/{category}(category=${category}, page=${(currentPage ?: 0) + 1}, size=5)}">Next</a>
+
+<!--                                <ul class="pagination justify-content-start">-->
+<!--                                    <li class="page-item"><a class="page-link" href="#">1</a></li>-->
+<!--                                    <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+<!--                                    <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+<!--                                    <li class="page-item">-->
+<!--                                        <a class="page-link" href="#">Next</a>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
                             </nav>
                         </div><!-- end col -->
                     </div><!-- end row -->
@@ -299,10 +309,10 @@
                             <h2 class="widget-title">Popular Categories</h2>
                             <div class="link-widget">
                                 <ul>
-                                    <li><a href="#">Database <span>(21)</span></a></li>
-                                    <li><a href="#">Programming <span>(15)</span></a></li>
-                                    <li><a href="#">AI<span>(31)</span></a></li>
-                                    <li><a href="#">Security<span>(22)</span></a></li>
+                                    <li><a href="@{/categoryDetails/database}">Database <span>(21)</span></a></li>
+                                    <li><a href="@{/categoryDetails/programming}">Programming <span>(15)</span></a></li>
+                                    <li><a href="@{/categoryDetails/ai}">AI<span>(31)</span></a></li>
+                                    <li><a href="@{/categoryDetails/security}">Security<span>(22)</span></a></li>
                                 </ul>
                             </div><!-- end link-widget -->
                         </div><!-- end widget -->
