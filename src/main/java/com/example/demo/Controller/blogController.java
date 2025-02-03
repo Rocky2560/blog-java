@@ -31,6 +31,11 @@ public class blogController {
     @Autowired
     postService postService;
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
     //Pointing tto the index page
     @GetMapping("/admin")
     public String adminLogin(Model model)

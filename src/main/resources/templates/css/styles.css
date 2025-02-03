@@ -91,6 +91,64 @@
   }
 }
 
+/* General Navbar Styling */
+.navbar-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Space between menu items */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background-color: #f8f9fa; /* Dark background for the navbar */
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+/* Nav Item Styling */
+.nav-item {
+    position: relative;
+}
+
+/* Nav Link Styling */
+.nav-link {
+    color: #ecf0f1; /* Light text color */
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px 15px;
+    transition: all 0.3s ease;
+}
+
+/* Hover Effect */
+.nav-link.color-green-hover:hover {
+    color: #2ecc71; /* Green color on hover */
+    background-color: rgba(255, 255, 255, 0.1); /* Slight background on hover */
+    border-radius: 4px;
+}
+
+/* Active Link Styling */
+.nav-link.active {
+    color: #2ecc71; /* Green color for active link */
+    font-weight: bold;
+}
+
+/* Underline Animation on Hover */
+.nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #2ecc71; /* Green underline */
+    transition: width 0.3s ease;
+}
+
+.nav-item:hover::after {
+    width: 100%; /* Full width on hover */
+}
+
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);

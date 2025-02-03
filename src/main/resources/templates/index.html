@@ -16,29 +16,29 @@
 <meta name="author" content="">
 
 <!-- Site Icons -->
-<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 
 <!-- Design fonts -->
 <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
 
 <!-- Bootstrap core CSS -->
-<link href="css/bootstrap.css" rel="stylesheet">
+<link href="/css/bootstrap.css" rel="stylesheet">
 
 <!-- FontAwesome Icons core CSS -->
-<link href="css/font-awesome.min.css" rel="stylesheet">
+<link href="/css/font-awesome.min.css" rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="style.css" rel="stylesheet">
+<link href="/css/styles.css" rel="stylesheet">
 
 <!-- Responsive styles for this template -->
-<link href="css/responsive.css" rel="stylesheet">
+<link href="/css/responsive.css" rel="stylesheet">
 
 <!-- Colors for this template -->
-<link href="css/colors.css" rel="stylesheet">
+<link href="/css/colors.css" rel="stylesheet">
 
 <!-- Version Garden CSS for this template -->
-<link href="css/version/garden.css" rel="stylesheet">
+<link href="/css/version/garden.css" rel="stylesheet">
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -241,14 +241,6 @@
                                 <a class="page-link" th:if="${(currentPage ?: 0) + 1 < (totalPages ?: 1)}"
                                    th:href="@{/posts/category/{category}(category=${category}, page=${(currentPage ?: 0) + 1}, size=5)}">Next</a>
 
-<!--                                <ul class="pagination justify-content-start">-->
-<!--                                    <li class="page-item"><a class="page-link" href="#">1</a></li>-->
-<!--                                    <li class="page-item"><a class="page-link" href="#">2</a></li>-->
-<!--                                    <li class="page-item"><a class="page-link" href="#">3</a></li>-->
-<!--                                    <li class="page-item">-->
-<!--                                        <a class="page-link" href="#">Next</a>-->
-<!--                                    </li>-->
-<!--                                </ul>-->
                             </nav>
                         </div><!-- end col -->
                     </div><!-- end row -->
@@ -280,30 +272,6 @@
                                 </div>
                             </div><!-- end blog-list -->
                         </div><!-- end widget -->
-
-<!--                        <div class="widget">-->
-<!--                            <h2 class="widget-title">Advertising</h2>-->
-<!--                            <div class="banner-spot clearfix">-->
-<!--                                <div class="banner-img">-->
-<!--                                    <img src="upload/banner_04.jpg" alt="" class="img-fluid">-->
-<!--                                </div>&lt;!&ndash; end banner-img &ndash;&gt;-->
-<!--                            </div>&lt;!&ndash; end banner &ndash;&gt;-->
-<!--                        </div>&lt;!&ndash; end widget &ndash;&gt;-->
-
-<!--                        <div class="widget">-->
-<!--                            <h2 class="widget-title">Instagram Feed</h2>-->
-<!--                            <div class="instagram-wrapper clearfix">-->
-<!--                                <a href="#"><img src="upload/garden_sq_01.jpg" alt="" class="img-fluid"></a>-->
-<!--                                <a href="#"><img src="upload/garden_sq_02.jpg" alt="" class="img-fluid"></a>-->
-<!--                                <a href="#"><img src="upload/garden_sq_03.jpg" alt="" class="img-fluid"></a>-->
-<!--                                <a href="#"><img src="upload/garden_sq_04.jpg" alt="" class="img-fluid"></a>-->
-<!--                                <a href="#"><img src="upload/garden_sq_05.jpg" alt="" class="img-fluid"></a>-->
-<!--                                <a href="#"><img src="upload/garden_sq_06.jpg" alt="" class="img-fluid"></a>-->
-<!--                                <a href="#"><img src="upload/garden_sq_07.jpg" alt="" class="img-fluid"></a>-->
-<!--                                <a href="#"><img src="upload/garden_sq_08.jpg" alt="" class="img-fluid"></a>-->
-<!--                                <a href="#"><img src="upload/garden_sq_09.jpg" alt="" class="img-fluid"></a>-->
-<!--                            </div>&lt;!&ndash; end Instagram wrapper &ndash;&gt;-->
-<!--                        </div>&lt;!&ndash; end widget &ndash;&gt;-->
 
                         <div class="widget">
                             <h2 class="widget-title">Popular Categories</h2>
@@ -366,10 +334,10 @@
 
 <!-- Core JavaScript
 ================================================== -->
-<script src="js/jquery.min.js"></script>
-<script src="js/tether.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/custom.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/tether.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/custom.js"></script>
 
 </body>
 </html>
