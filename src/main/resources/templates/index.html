@@ -200,15 +200,14 @@
                                     <!-- Hidden field for postid -->
                                     <input type="hidden" name="postid" th:value="${post.id}">
                                 </form>
-                                <div class="col-md-4">
+                                <div  class="col-md-4">
                                     <div class="post-media">
-                                        <a href="garden-single.html" title="">
-                                            <img src="images/java.jpg" alt="" class="img-fluid">
+                                        <a href="#" title="">
+                                            <img th:src="${post.image}" width="250" height="300" alt="" class="img-fluid">
                                             <div class="hovereffect"></div>
                                         </a>
                                     </div><!-- end media -->
                                 </div><!-- end col -->
-
                                 <div  class="blog-meta big-meta col-md-8">
                                     <span class="bg-aqua"><a href="garden-category.html" th:text="${post.category}"></a></span>
                                     <h4>
@@ -220,6 +219,7 @@
                                     <small><a href="garden-single.html" title=""> August, 2023</a></small>
                                     <small><a href="#" title="">by Sudip</a></small>
                                 </div>
+                                <br>
                             </div>
 
                             <hr class="invis">
