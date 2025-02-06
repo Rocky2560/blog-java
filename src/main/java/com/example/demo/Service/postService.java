@@ -44,9 +44,7 @@
             Pageable pageable = PageRequest.of(page, size);
             return (Page<posts>) userpostsRepository.findByCategory(category, pageable);
         }
-//            public List<posts> getPostsByCategory(String category) {
-//                return userpostsRepository.findByCategory(category);
-//            }
+
 
 
         public void saveorUpdate(posts posts, MultipartFile imagefile) throws IOException
