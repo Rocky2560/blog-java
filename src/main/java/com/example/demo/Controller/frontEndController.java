@@ -32,6 +32,7 @@ public class frontEndController {
     {
         List<posts> posts = postService.getAlllistPosts();
         model.addAttribute("posts", posts);
+
         return "index";
     }
 
@@ -42,8 +43,8 @@ public class frontEndController {
     }
 
     @GetMapping(value = "/details" )
-    public String postdetails(@RequestParam(value = "postid") String id, Model model,  @RequestParam(defaultValue = "0") int page,
-                              @RequestParam(defaultValue = "5") int size) {
+    public String postdetails(@RequestParam(value = "postid") String id, Model model,  @RequestParam(defaultValue = "0")
+                                  int page, @RequestParam(defaultValue = "5") int size) {
         int idd = Integer.parseInt(id);
         posts posts =  postService.getPostById(idd);
         model.addAttribute("posts", posts);
@@ -51,15 +52,16 @@ public class frontEndController {
     }
 
     @GetMapping(value = "/categoryDetails/{category}")
-    public String getPostsByCategory(@PathVariable String category, Model model, RedirectAttributes redirectAttributes,  @RequestParam(defaultValue = "0") int page,
+    public String getPostsByCategory(@PathVariable String category, Model model, RedirectAttributes redirectAttributes,
+                                     @RequestParam(defaultValue = "0") int page,
                                      @RequestParam(defaultValue = "5") int size) {
 
         Page<posts> postsPage = postService.getPostsByCategory(category, page, size);
+        model.addAttribute("category", category);
         model.addAttribute("posts", postsPage.getContent());  // Posts for current page
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", postsPage.getTotalPages());
-
-        return "redirect:/redirect"; // Return to Thymeleaf template
+        return "index"; // Return to Thymeleaf template
     }
 
 }
