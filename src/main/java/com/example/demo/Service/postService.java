@@ -34,6 +34,10 @@
             return post;
         }
 
+        public List<posts> getRecentPosts() {
+            return userpostsRepository.findTop5ByOrderByCreatedDateDesc();
+        }
+
         public posts getPostById(long id)
         {
             return userpostsRepository.findById((int) id).get();

@@ -111,19 +111,19 @@
                             <a class="nav-link color-green-hover" th:href="@{/test}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link color-green-hover" th:href="@{/categoryDetails/database}" >Database</a>
+                            <a class="nav-link color-green-hover" th:href="@{/database}" >Database</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link color-green-hover"  th:href="@{/categoryDetails/security}">Security</a>
+                            <a class="nav-link color-green-hover"  th:href="@{/security}">Security</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link color-green-hover"  th:href="@{/categoryDetails/ai}">AI</a>
+                            <a class="nav-link color-green-hover"  th:href="@{/ai}">AI</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link color-green-hover"  th:href="@{/categoryDetails/security}">Security</a>
+                            <a class="nav-link color-green-hover"  th:href="@{/security}">Security</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link color-green-hover"  th:href="@{/categoryDetails/programming}">Programming</a>
+                            <a class="nav-link color-green-hover"  th:href="@{/programming}">Programming</a>
                         </li>
                     </ul>
                 </div>
@@ -263,9 +263,9 @@
                             <div class="blog-list-widget">
                                 <div class="list-group">
                                     <a href="garden-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
-                                        <div class="w-100 justify-content-between">
+                                        <div  th:each="post : ${posts}" class="w-100 justify-content-between">
                                             <img src="upload/garden_sq_09.jpg" alt="" class="img-fluid float-left">
-                                            <h5 class="mb-1">5 Beautiful buildings you need to before dying</h5>
+                                            <h5 class="mb-1" th:text="${recentpost.title}"></h5>
                                             <small>12 Jan, 2016</small>
                                         </div>
                                     </a>
@@ -277,10 +277,10 @@
                             <h2 class="widget-title">Popular Categories</h2>
                             <div class="link-widget">
                                 <ul>
-                                    <li><a href="@{/categoryDetails/database}">Database <span>(21)</span></a></li>
-                                    <li><a href="@{/categoryDetails/programming}">Programming <span>(15)</span></a></li>
-                                    <li><a href="@{/categoryDetails/ai}">AI<span>(31)</span></a></li>
-                                    <li><a href="@{/categoryDetails/security}">Security<span>(22)</span></a></li>
+                                    <li><a href="@{/database}">Database <span>(21)</span></a></li>
+                                    <li><a href="@{/programming}">Programming <span>(15)</span></a></li>
+                                    <li><a href="@{/ai}">AI<span>(31)</span></a></li>
+                                    <li><a href="@{/security}">Security<span>(22)</span></a></li>
                                 </ul>
                             </div><!-- end link-widget -->
                         </div><!-- end widget -->

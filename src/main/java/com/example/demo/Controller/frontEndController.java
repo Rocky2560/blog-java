@@ -31,7 +31,9 @@ public class frontEndController {
                         @RequestParam(defaultValue = "5") int size)
     {
         List<posts> posts = postService.getAlllistPosts();
+        List<posts> recentPost = postService.getRecentPosts();
         model.addAttribute("posts", posts);
+//        model.addAttribute("recentpost",recentPost);
 
         return "index";
     }
@@ -51,7 +53,7 @@ public class frontEndController {
         return "garden-single";  // This returns the 'garden-single' view with the post data
     }
 
-    @GetMapping(value = "/categoryDetails/{category}")
+    @GetMapping(value = "/{category}")
     public String getPostsByCategory(@PathVariable String category, Model model, RedirectAttributes redirectAttributes,
                                      @RequestParam(defaultValue = "0") int page,
                                      @RequestParam(defaultValue = "5") int size) {
@@ -61,7 +63,7 @@ public class frontEndController {
         model.addAttribute("posts", postsPage.getContent());  // Posts for current page
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", postsPage.getTotalPages());
-        return "index"; // Return to Thymeleaf template
+        return "forward:/redirect"; // Return to Thymeleaf template
     }
 
 }
