@@ -35,7 +35,7 @@
         }
 
         public List<posts> getRecentPosts() {
-            return userpostsRepository.findTop5ByOrderByCreatedDateDesc();
+            return userpostsRepository.findTop5ByOrderByCreatedateDesc();
         }
 
         public posts getPostById(long id)
@@ -47,6 +47,12 @@
         public Page<posts> getPostsByCategory(String category, int page, int size) {
             Pageable pageable = PageRequest.of(page, size);
             return (Page<posts>) userpostsRepository.findByCategory(category, pageable);
+        }
+
+        // Search posts by title with pagination
+        public Page<posts> searchPosts(String keyword, int page, int size) {
+            PageRequest pageRequest = PageRequest.of(page, size);
+            return userpostsRepository.findByTitleContainingIgnoreCase(keyword, pageRequest);
         }
 
 

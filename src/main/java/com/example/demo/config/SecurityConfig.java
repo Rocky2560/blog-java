@@ -34,13 +34,19 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/test","/redirect","/categoryDetails/**","/details","/search","/database",
+//                                "/ai","/programming","/security").permitAll()
+//                        .requestMatchers("/api/login").permitAll()
+//                        .requestMatchers("/api/**").hasRole("ADMIN")
+//                        .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**","/uploads/**", "/").permitAll()
+//                        .anyRequest().authenticated()
+//                )
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/test","/redirect","/categoryDetails/**","/details").permitAll()
-                        .requestMatchers("/api/login").permitAll()
                         .requestMatchers("/api/**").hasRole("ADMIN")
-                        .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**","/uploads/**", "/").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
                         .loginPage("/api/login")

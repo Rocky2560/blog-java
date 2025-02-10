@@ -12,7 +12,9 @@ import java.util.List;
 
 @Repository
 public interface userpostsRepository extends JpaRepository<posts, Integer>, MyCustomRepository {
-    List<posts> findTop5ByOrderByCreatedDateDesc();
+    List<posts> findTop5ByOrderByCreatedateDesc();
+    // Fetch posts containing a specific keyword in the title (case-insensitive)
+    Page<posts> findByTitleContainingIgnoreCase(String title, Pageable pageable);
 
     public interface PostRepository extends JpaRepository<posts, Long> {
         Page<posts> findByCategory(String category, Pageable pageable);

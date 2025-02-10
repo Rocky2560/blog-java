@@ -214,7 +214,7 @@
                                         <a href="#" th:attr="onclick='document.getElementById(\'myForm_' + ${post.id} + '\').submit();'" th:text="${post.title}" title="">
                                         </a>
                                     </h4>
-                                    <p>Aenean interdum arcu blandit, vehicula magna non, maximus ac felis nec, maximus tempor odio.</p>
+<!--                                    <p>Aenean interdum arcu blandit, vehicula magna non, maximus ac felis nec, maximus tempor odio.</p>-->
                                     <small><a href="garden-category.html" title=""><i class="fa fa-eye"></i> 2023</a></small>
                                     <small><a href="garden-single.html" title=""> August, 2023</a></small>
                                     <small><a href="#" title="">by Sudip</a></small>
@@ -250,9 +250,9 @@
                     <div class="sidebar">
                         <div class="widget">
                             <h2 class="widget-title">Search</h2>
-                            <form class="form-inline search-form">
+                            <form th:action="@{/search}" class="form-inline search-form">
                                 <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Search on the site">
+                                    <input type="text" class="form-control" name="keyword" placeholder="Search on the site">
                                 </div>
                                 <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                             </form>
@@ -261,11 +261,11 @@
                         <div class="widget">
                             <h2 class="widget-title">Recent Posts</h2>
                             <div class="blog-list-widget">
-                                <div class="list-group">
-                                    <a href="garden-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
-                                        <div  th:each="post : ${posts}" class="w-100 justify-content-between">
+                                <div th:each="recent : ${recentpost}" class="list-group">
+                                    <a  href="#" th:attr="onclick='document.getElementById(\'myForm_' + ${recent.id} + '\').submit();'" class="list-group-item list-group-item-action flex-column align-items-start">
+                                        <div  class="w-100 justify-content-between">
                                             <img src="upload/garden_sq_09.jpg" alt="" class="img-fluid float-left">
-                                            <h5 class="mb-1" th:text="${recentpost.title}"></h5>
+                                            <h5 class="mb-1" th:text="${recent.title}"></h5>
                                             <small>12 Jan, 2016</small>
                                         </div>
                                     </a>

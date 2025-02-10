@@ -33,7 +33,7 @@ public class frontEndController {
         List<posts> posts = postService.getAlllistPosts();
         List<posts> recentPost = postService.getRecentPosts();
         model.addAttribute("posts", posts);
-//        model.addAttribute("recentpost",recentPost);
+        model.addAttribute("recentpost",recentPost);
 
         return "index";
     }
@@ -50,6 +50,8 @@ public class frontEndController {
         int idd = Integer.parseInt(id);
         posts posts =  postService.getPostById(idd);
         model.addAttribute("posts", posts);
+        List<posts> recentPost = postService.getRecentPosts();
+        model.addAttribute("recentpost",recentPost);
         return "garden-single";  // This returns the 'garden-single' view with the post data
     }
 
@@ -59,11 +61,34 @@ public class frontEndController {
                                      @RequestParam(defaultValue = "5") int size) {
 
         Page<posts> postsPage = postService.getPostsByCategory(category, page, size);
+        List<posts> recentPost = postService.getRecentPosts();
+        model.addAttribute("recentpost",recentPost);
         model.addAttribute("category", category);
         model.addAttribute("posts", postsPage.getContent());  // Posts for current page
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", postsPage.getTotalPages());
         return "forward:/redirect"; // Return to Thymeleaf template
+    }
+
+    @GetMapping("/search")
+    public String searchPosts(@RequestParam String keyword,
+                              @RequestParam(defaultValue = "0") int page,
+                              @RequestParam(defaultValue = "5") int size,
+                              Model model) {
+
+        // Fetch search results
+        Page<posts> searchResults = postService.searchPosts(keyword, page, size);
+
+        List<posts> recentPost = postService.getRecentPosts();
+        model.addAttribute("recentpost",recentPost);
+        // Add results to the model
+        model.addAttribute("posts", searchResults.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", searchResults.getTotalPages());
+        model.addAttribute("keyword", keyword);
+
+
+        return "forward:/redirect"; // Return the Thymeleaf view
     }
 
 }
