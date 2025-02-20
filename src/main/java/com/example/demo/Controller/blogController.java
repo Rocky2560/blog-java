@@ -4,6 +4,7 @@ import com.example.demo.Service.postService;
 import com.example.demo.model.posts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -38,17 +39,20 @@ public class blogController {
 
     //Pointing tto the index page
     @GetMapping("/admin")
-    public String adminLogin(Model model)
+    public String adminLogin(Model model, @RequestParam(defaultValue = "0") int page,
+                             @RequestParam(defaultValue = "5") int size)
     {
-        List<posts> posts = postService.getAlllistPosts();
+        Page<posts> posts = postService.getAlllistPosts(page, size);
         model.addAttribute("posts", posts);
         return "edit";
     }
     //Showing the post details
     @GetMapping("/postDetails")
-    public String  postDetails(@RequestParam(value = "id", required = false) Long id, Model model)
+    public String  postDetails(@RequestParam(value = "id", required = false) Long id, Model model,
+                               @RequestParam(defaultValue = "0") int page,
+                               @RequestParam(defaultValue = "5") int size)
     {
-        List<posts> posts = postService.getAlllistPosts();
+        Page<posts> posts = postService.getAlllistPosts(page, size);
         model.addAttribute("posts", posts);
         return "edit";
     }

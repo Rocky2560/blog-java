@@ -52,8 +52,8 @@
     <div class="collapse top-search" id="collapseExample">
         <div class="card card-block">
             <div class="newsletter-widget text-center">
-                <form class="form-inline">
-                    <input type="text" class="form-control" placeholder="What you are looking for?">
+                <form th:action="@{/search}" class="form-inline">
+                    <input type="text" name="keyword" class="form-control" placeholder="What you are looking for?">
                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                 </form>
             </div><!-- end newsletter -->
@@ -120,7 +120,7 @@
                             <a class="nav-link color-green-hover"  th:href="@{/ai}">AI</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link color-green-hover"  th:href="@{/security}">Security</a>
+                            <a class="nav-link color-green-hover"  th:href="@{/issue}">Issue</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link color-green-hover"  th:href="@{/programming}">Programming</a>
@@ -140,11 +140,11 @@
                         <div class="shadoweffect">
                             <div class="shadow-desc">
                                 <div class="blog-meta">
-                                    <span class="bg-aqua"><a href="blog-category-01.html" title="">Database</a></span>
+                                    <span class="bg-aqua"><a href="" title="">Database</a></span>
                                     <h4>
-                                        <a href="garden-single.html" >Cassandra: NoSql Database</a>
+                                        <a href="@{/details?postid=1702}" >Cassandra: NoSql Database</a>
                                     </h4>
-                                    <small><a href="garden-single.html" title="">21 August, 2023</a></small>
+                                    <small><a href="@{/details?postid=1702}" title="">21 August, 2023</a></small>
                                     <small><a href="#" title="">by Sudip</a></small>
                                 </div><!-- end meta -->
                             </div><!-- end shadow-desc -->
@@ -158,11 +158,11 @@
                         <div class="shadoweffect">
                             <div class="shadow-desc">
                                 <div class="blog-meta">
-                                    <span class="bg-aqua"><a href="blog-category-01.html" title="">Programming</a></span>
+                                    <span class="bg-aqua"><a href="" title="">Programming</a></span>
                                     <h4>
-                                        <a href="garden-single.html"> Java Features respective to it versions</a>
+                                        <a href="@{/details?postid=1907}"> Java Features respective to it versions</a>
                                     </h4>
-                                    <small><a href="garden-single.html" title="">1 September, 2023</a></small>
+                                    <small><a href="@{/details?postid=1907}" title="">1 September, 2023</a></small>
                                     <small><a href="#" title="">by Sudip</a></small>
                                 </div><!-- end meta -->
                             </div><!-- end shadow-desc -->
@@ -176,7 +176,7 @@
                         <div class="shadoweffect">
                             <div class="shadow-desc">
                                 <div class="blog-meta">
-                                    <span class="bg-aqua"><a href="blog-category-01.html" title="">AI</a></span>
+                                    <span class="bg-aqua"><a href="" title="">AI</a></span>
                                     <h4><a href="garden-single.html" title="">DeepSeek: Preview</a></h4>
                                     <small><a href="garden-single.html" title="">25 Jan, 2025</a></small>
                                     <small><a href="#" title="">by Sudip</a></small>
@@ -195,7 +195,7 @@
                 <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                     <div class="page-wrapper">
                         <div class="blog-list clearfix">
-                            <div  th:each="post : ${posts}" class="blog-box row">
+                            <div  style="margin-bottom: 20px;" th:each="post : ${posts}" class="blog-box row">
                                 <form th:id="'myForm_' + ${post.id}" th:action="@{details}" method="get">
                                     <!-- Hidden field for postid -->
                                     <input type="hidden" name="postid" th:value="${post.id}">
@@ -219,7 +219,6 @@
                                     <small><a href="garden-single.html" title=""> August, 2023</a></small>
                                     <small><a href="#" title="">by Sudip</a></small>
                                 </div>
-                                <br>
                             </div>
 
                             <hr class="invis">
@@ -227,20 +226,21 @@
                     </div><!-- end page-wrapper -->
 
                     <hr class="invis">
-
                     <div class="row">
                         <div class="col-md-12">
                             <nav aria-label="Page navigation">
                                 <!-- Pagination Controls -->
-                                <a class="page-link" th:if="${(currentPage ?: 0) > 0}"
-                                   th:href="@{/posts/category/{category}(category=${category}, page=${(currentPage ?: 0) - 1}, size=5)}">Previous</a>
-
                                 <ul class="pagination justify-content-start">
-                                <li class="page-link" th:text="'Page ' + (${(currentPage ?: 0) + 1}) + ' of ' + (${totalPages ?: 1})"></li>
-                                </ul>
-                                <a class="page-link" th:if="${(currentPage ?: 0) + 1 < (totalPages ?: 1)}"
-                                   th:href="@{/posts/category/{category}(category=${category}, page=${(currentPage ?: 0) + 1}, size=5)}">Next</a>
+                                <a class="page-link" th:if="${(currentPage ?: 0) > 0}"
+                                   th:href="@{{category}(category=${category}, page=${(currentPage ?: 0) - 1}, size=5)}">Previous</a>
 
+                                    <ul class="pagination justify-content-start">
+                                <li class="page-link" th:text="'Page ' + (${(currentPage ?: 0) + 1}) + ' of ' + (${totalPages ?: 1})"></li>
+<!--                                </ul>-->
+
+                                <a class="page-link" th:if="${(currentPage ?: 0) + 1 < (totalPages ?: 1)}"
+                                   th:href="@{{category}(category=${category}, page=${(currentPage ?: 0) + 1}, size=5)}">Next</a>
+                            </ul>
                             </nav>
                         </div><!-- end col -->
                     </div><!-- end row -->
@@ -258,15 +258,20 @@
                             </form>
                         </div><!-- end widget -->
 
+
                         <div class="widget">
                             <h2 class="widget-title">Recent Posts</h2>
                             <div class="blog-list-widget">
                                 <div th:each="recent : ${recentpost}" class="list-group">
-                                    <a  href="#" th:attr="onclick='document.getElementById(\'myForm_' + ${recent.id} + '\').submit();'" class="list-group-item list-group-item-action flex-column align-items-start">
-                                        <div  class="w-100 justify-content-between">
-                                            <img src="upload/garden_sq_09.jpg" alt="" class="img-fluid float-left">
+                                    <form th:id="'myForm2_' + ${recent.id}" th:action="@{details}" method="get">
+                                        <!-- Hidden field for postid -->
+                                        <input type="hidden" name="postid" th:value="${recent.id}">
+                                    </form>
+                                    <a  href="#" th:attr="onclick='document.getElementById(\'myForm2_' + ${recent.id} + '\').submit();'" class="list-group-item list-group-item-action flex-column align-items-start">
+                                     <div  class="w-100 justify-content-between">
+                                            <img th:src="${recent.image}" alt="" class="img-fluid float-left">
                                             <h5 class="mb-1" th:text="${recent.title}"></h5>
-                                            <small>12 Jan, 2016</small>
+                                            <small>12 Jan, 2025</small>
                                         </div>
                                     </a>
                                 </div>
@@ -322,7 +327,7 @@
                 <div class="col-md-12 text-center">
                     <br>
                     <br>
-                    <div class="copyright">&copy; BLOG Sudip: <a href="#"></a>.</div>
+                    <div class="copyright">&copy; BLOG By Sudip: <a href="#"></a>.</div>
                 </div>
             </div>
         </div><!-- end container -->

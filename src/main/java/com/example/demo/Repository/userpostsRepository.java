@@ -16,7 +16,9 @@ public interface userpostsRepository extends JpaRepository<posts, Integer>, MyCu
     // Fetch posts containing a specific keyword in the title (case-insensitive)
     Page<posts> findByTitleContainingIgnoreCase(String title, Pageable pageable);
 
-    public interface PostRepository extends JpaRepository<posts, Long> {
-        Page<posts> findByCategory(String category, Pageable pageable);
-    }
+
+    Page<posts> findByCategory(String category, Pageable pageable);
+
+
+    Page<posts> findAll(Pageable pageable);
 }

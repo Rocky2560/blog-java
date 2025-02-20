@@ -27,11 +27,9 @@
         @Autowired
         userpostsRepository userpostsRepository;
 
-        public List<posts> getAlllistPosts ()
-        {
-            List<posts> post = new ArrayList<>();
-            userpostsRepository.findAll().forEach(posts1 -> post.add(posts1));
-            return post;
+        public Page<posts> getAlllistPosts(int page, int size) {
+            Pageable pageable = PageRequest.of(page, size);
+            return userpostsRepository.findAll(pageable);
         }
 
         public List<posts> getRecentPosts() {

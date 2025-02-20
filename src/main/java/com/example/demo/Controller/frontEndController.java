@@ -30,8 +30,11 @@ public class frontEndController {
     public String index(Model model,  @RequestParam(defaultValue = "0") int page,
                         @RequestParam(defaultValue = "5") int size)
     {
-        List<posts> posts = postService.getAlllistPosts();
+        Page<posts> posts = postService.getAlllistPosts(page,size);
         List<posts> recentPost = postService.getRecentPosts();
+//        model.addAttribute("currentPage", 0);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", posts.getTotalPages());
         model.addAttribute("posts", posts);
         model.addAttribute("recentpost",recentPost);
 
@@ -60,6 +63,8 @@ public class frontEndController {
                                      @RequestParam(defaultValue = "0") int page,
                                      @RequestParam(defaultValue = "5") int size) {
 
+//        size = 5;
+////        System.out.println(size);
         Page<posts> postsPage = postService.getPostsByCategory(category, page, size);
         List<posts> recentPost = postService.getRecentPosts();
         model.addAttribute("recentpost",recentPost);
@@ -67,7 +72,7 @@ public class frontEndController {
         model.addAttribute("posts", postsPage.getContent());  // Posts for current page
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", postsPage.getTotalPages());
-        return "forward:/redirect"; // Return to Thymeleaf template
+        return "index"; // Return to Thymeleaf template
     }
 
     @GetMapping("/search")

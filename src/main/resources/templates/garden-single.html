@@ -270,12 +270,16 @@
                             <div class="widget">
                                 <h2 class="widget-title">Recent Posts</h2>
                                 <div class="blog-list-widget">
-                                    <div class="list-group">
-                                        <a href="garden-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
-                                            <div  th:each="recent : ${recentpost}" class="w-100 justify-content-between">
-                                                <img src="upload/garden_sq_09.jpg" alt="" class="img-fluid float-left">
+                                    <div class="list-group" th:each="recent : ${recentpost}">
+                                        <form th:id="'myForm2_' + ${recent.id}" th:action="@{details}" method="get">
+                                            <!-- Hidden field for postid -->
+                                            <input type="hidden" name="postid" th:value="${recent.id}">
+                                        </form>
+                                        <a  href="#" th:attr="onclick='document.getElementById(\'myForm2_' + ${recent.id} + '\').submit();'" class="list-group-item list-group-item-action flex-column align-items-start">
+                                            <div class="w-100 justify-content-between">
+                                                <img th:src="${recent.image}" alt="" class="img-fluid float-left">
                                                 <h5 class="mb-1" th:text="${recent.title}"></h5>
-                                                <small>12 Jan, 2016</small>
+                                                <small>12 Jan, 2025</small>
                                             </div>
                                         </a>
                                     </div>
