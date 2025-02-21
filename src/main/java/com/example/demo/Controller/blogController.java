@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import  com.example.demo.Service.subscriptionService;
 @Controller
 @RequestMapping("/api")
 public class blogController {
@@ -31,6 +31,9 @@ public class blogController {
     private static final String UPLOAD_DIR = "uploads/";
     @Autowired
     postService postService;
+
+    @Autowired
+    private subscriptionService subscriptionService;
 
     @GetMapping("/login")
     public String login() {
@@ -77,6 +80,8 @@ public class blogController {
             posts.setDescription(description);
             posts.setCategory(category);
             postService.saveorUpdate(posts, image);
+            // Notify all subscribers about the new post
+            subscriptionService.notifySubscribersAboutNewPost(posts);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

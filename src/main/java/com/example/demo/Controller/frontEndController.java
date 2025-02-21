@@ -1,7 +1,9 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Service.postService;
+import com.example.demo.Service.subscriptionService;
 import com.example.demo.model.posts;
+import com.example.demo.model.subscription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +28,9 @@ public class frontEndController {
     @Autowired
     postService postService;
 
+    @Autowired
+    subscriptionService subscriptionService;
+
     @GetMapping(value = "/test")
     public String index(Model model,  @RequestParam(defaultValue = "0") int page,
                         @RequestParam(defaultValue = "5") int size)
@@ -38,6 +43,13 @@ public class frontEndController {
         model.addAttribute("posts", posts);
         model.addAttribute("recentpost",recentPost);
 
+        return "index";
+    }
+
+    @GetMapping(value = "/subscribe")
+    public String subscribe(@RequestParam(value = "email")String email, Model model)
+    {
+        subscriptionService.subscribe(email);
         return "index";
     }
 
