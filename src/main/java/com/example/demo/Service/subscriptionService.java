@@ -54,11 +54,7 @@ public class subscriptionService {
 
         mailSender.send(message);
     }
-//    private void sendConfirmationEmail(String email) {
-//        String subject = "Subscription Confirmation";
-//        String text = "Thank you for subscribing to our blog!";
-//        sendEmail(email, subject, text);
-//    }
+
 
     public void notifySubscribersAboutNewPost(posts post) {
         List<subscription> subscribers = subscriptionRepository.findAll();
@@ -67,15 +63,11 @@ public class subscriptionService {
         }
     }
 
-//    private void sendNewPostNotification(String email, posts post) {
-//        String subject = "New Blog Post: " + post.getTitle();
-//        String text = "A new post has been published!\n\nTitle: " + post.getTitle() + "\n\n" + post.getDescription();
-//        sendEmail(email, subject, text);
-//    }
+
 // Send new post notification to a subscriber
 private void sendNewPostNotification(String email, posts post) {
     SimpleMailMessage message = new SimpleMailMessage();
-    message.setFrom("your-email@example.com");
+    message.setFrom("sudipmanandhar2560@example.com");
     message.setTo(email);
     message.setSubject("New Blog Post: " + post.getTitle());
     message.setText("A new post has been published!\n\nTitle: " + post.getTitle() + "\n\n" + post.getDescription());
@@ -83,43 +75,4 @@ private void sendNewPostNotification(String email, posts post) {
     mailSender.send(message);
 }
 
-    public void sendEmail(String to, String subject, String text) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("sudipmanandhar2560@gmail.com");
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(text);
-
-        mailSender.send(message);
-    }
-
-//    private void sendEmail(String recipient, String subject, String text) {
-//        try {
-//            Properties props = new Properties();
-//            props.put("mail.smtp.auth", "true");
-//            props.put("mail.smtp.starttls.enable", "true");
-//            props.put("mail.smtp.host", "smtp.gmail.com");
-//            props.put("mail.smtp.port", "587");
-//
-//            Session session = Session.getInstance(props);
-//            MimeMessage message = new MimeMessage(session);
-//            message.setFrom(new InternetAddress(EMAIL_FROM));
-//            message.setRecipients(MimeMessage.RecipientType.TO, InternetAddress.parse(recipient));
-//            message.setSubject(subject);
-//            message.setText(text);
-//
-//            // Get OAuth Access Token
-//            String accessToken = gmailOAuthService.getAccessToken();
-//            Transport transport = session.getTransport("smtp");
-//            transport.connect("smtp.gmail.com", EMAIL_FROM, accessToken);
-//            transport.sendMessage(message, message.getAllRecipients());
-//            transport.close();
-//
-//            System.out.println("Email sent successfully to: " + recipient);
-//        } catch (MessagingException e) {
-//            throw new RuntimeException("Error sending email", e);
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
 }
