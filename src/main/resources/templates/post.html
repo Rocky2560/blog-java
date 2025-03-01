@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Blog Post</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script>
+        function showReplyForm(commentId) {
+            document.getElementById("replyForm-" + commentId).style.display = "block";
+        }
+    </script>
+</head>
+<body class="container">
+<h1>Blog Post</h1>
+
+<!-- Comment Form -->
+<h3>Leave a Comment</h3>
+<form th:action="@{/posts/{postId}/addComment(postId=${postId})}" method="post">
+    <div class="mb-3">
+        <label class="form-label">Your Name:</label>
+        <input type="text" name="name" class="form-control" required />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Your Comment:</label>
+        <textarea name="comment" class="form-control" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<!-- Display Comments -->
+<h3 class="mt-4">Comments</h3>
+<div th:each="comment : ${comments}" class="card mt-2">
+    <div class="card-body">
+        <p>
+            <strong th:text="${comment.name}"></strong>
+            - <span th:text="${#temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+        </p>
+        <p th:text="${comment.comment}"></p>
+        <button class="btn btn-sm btn-outline-primary" th:onclick="|showReplyForm(${comment.id})|">Reply</button>
+
+        <!-- Reply Form (Initially Hidden) -->
+        <form th:id="|replyForm-${comment.id}|" th:action="@{/posts/{postId}/addComment(postId=${postId})}"
+              method="post" style="display: none;" class="mt-2">
+            <input type="hidden" name="parentId" th:value="${comment.id}" />
+            <div class="mb-2">
+                <input type="text" name="name" class="form-control" placeholder="Your Name" required />
+            </div>
+            <div class="mb-2">
+                <textarea name="comment" class="form-control" placeholder="Your Reply" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-sm btn-success">Submit Reply</button>
+        </form>
+
+        <!-- Display Replies -->
+        <div th:each="reply : ${comment.replies}" class="ms-4 mt-2">
+            <div class="card">
+                <div class="card-body">
+                    <p>
+                        <strong th:text="${reply.name}"></strong>
+                        - <span th:text="${#temporals.format(reply.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+                    </p>
+                    <p th:text="${reply.comment}"></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

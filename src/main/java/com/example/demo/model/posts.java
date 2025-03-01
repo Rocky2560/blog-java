@@ -13,10 +13,10 @@ import java.util.Date;
 
 @Entity
 @Table (name = "posts")
-//@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class posts {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,11 +29,11 @@ public class posts {
     @Column(nullable = false)
     private String  description;
 
-    public posts()
-    {
-        this.createdate = LocalDateTime.now();
-
-    }
+//    public posts()
+//    {
+//        this.createdate = LocalDateTime.now();
+//
+//    }
     @Column(nullable = false)
     private LocalDateTime createdate;
 
@@ -42,4 +42,9 @@ public class posts {
 
     @Column(nullable = false)
     private String image;
+
+    public posts(Long postId) {
+        this.id = postId;
+        this.createdate = LocalDateTime.now();
+    }
 }
