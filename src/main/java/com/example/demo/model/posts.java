@@ -17,7 +17,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class    posts {
+public class posts {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

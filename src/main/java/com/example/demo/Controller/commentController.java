@@ -36,14 +36,19 @@ public class commentController {
     // Handle new comment submission
     @PostMapping("/{postId}/addComment")
     public String addComment(@PathVariable int postId, @ModelAttribute comment comment,
-                             @RequestParam(required = false) Long parentId) {
+                             @RequestParam(required = false) Long parentId, @RequestParam(value = "name") String name,
+                             @RequestParam(value = "text") String message) {
         posts posts = postService.findById(postId).orElseThrow(()-> new RuntimeException("posts not found"));
 //        comment.setPost(new posts(postId)); // Set post ID
+//        System.out.println(posts.getId());
+//        comment comment = new comment();
+        comment.setName(name);
+        comment.setComment(message);
        comment.setPost(posts);
-        System.out.println(comment.getComment());
+        System.out.println(comment.getId());
         commentService.saveComment(comment, parentId);
         return "redirect:/posts/" + postId;
-//        return "post";
+
     }
 
 

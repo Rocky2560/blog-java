@@ -45,7 +45,7 @@
                 <input type="text" name="name" class="form-control" placeholder="Your Name" required />
             </div>
             <div class="mb-2">
-                <textarea name="comment" class="form-control" placeholder="Your Reply" required></textarea>
+                <textarea name="text" class="form-control" placeholder="Your Reply" required></textarea>
             </div>
             <button type="submit" class="btn btn-sm btn-success">Submit Reply</button>
         </form>
@@ -58,7 +58,21 @@
                         <strong th:text="${reply.name}"></strong>
                         - <span th:text="${#temporals.format(reply.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
                     </p>
-                    <p th:text="${reply.comment}"></p>
+                    <p th:text="${reply.comment}">Reply</p>
+                    <button class="btn btn-sm btn-outline-primary" th:onclick="|showReplyForm(${comment.id})|">Reply</button>
+
+                    <!-- Reply Form (Initially Hidden) -->
+                    <form th:id="|replyForm-${comment.id}|" th:action="@{/posts/{postId}/addComment(postId=${postId})}"
+                          method="post" style="display: none;" class="mt-2">
+                        <input type="hidden" name="parentId" th:value="${comment.id}" />
+                        <div class="mb-2">
+                            <input type="text" name="name" class="form-control" placeholder="Your Name" required />
+                        </div>
+                        <div class="mb-2">
+                            <textarea name="text" class="form-control" placeholder="Your Reply" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-success">Submit Reply</button>
+                    </form>
                 </div>
             </div>
         </div>

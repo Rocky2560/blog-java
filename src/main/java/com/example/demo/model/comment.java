@@ -21,7 +21,7 @@ public class comment {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = true, columnDefinition = "TEXT")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String comment;
 
     @Column(nullable = false)
