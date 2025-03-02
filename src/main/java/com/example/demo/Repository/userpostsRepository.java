@@ -21,4 +21,5 @@ public interface userpostsRepository extends JpaRepository<posts, Integer>, MyCu
 
 
     Page<posts> findAll(Pageable pageable);
+
 }

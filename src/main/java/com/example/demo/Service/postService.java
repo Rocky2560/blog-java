@@ -18,6 +18,7 @@
     import java.nio.file.Paths;
     import java.util.ArrayList;
     import java.util.List;
+    import java.util.Optional;
 
 
     @Service
@@ -32,6 +33,9 @@
             return userpostsRepository.findAll(pageable);
         }
 
+        public Optional<posts> findById(int id) {
+            return userpostsRepository.findById(id);
+        }
         public List<posts> getRecentPosts() {
             return userpostsRepository.findTop5ByOrderByCreatedateDesc();
         }
