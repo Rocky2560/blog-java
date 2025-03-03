@@ -41,7 +41,13 @@
     <link href="/css/version/garden.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js">
+      </script>
+      <script>
+          function showReplyForm(commentId) {
+              document.getElementById("replyForm-" + commentId).style.display = "block";
+          }
+      </script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
@@ -243,18 +249,75 @@
                                 <h4 class="small-title">Leave a Reply</h4>
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <form class="form-wrapper">
-                                            <input type="text" class="form-control" placeholder="Your name">
-                                            <input type="text" class="form-control" placeholder="Email address">
-                                            <input type="text" class="form-control" placeholder="Website">
-                                            <textarea class="form-control" placeholder="Your comment"></textarea>
-                                            <button type="submit" class="btn btn-primary">Submit Comment</button>
+                                        <form th:action="@{/posts/{postId}/addComment(postId=${post.id})}" method="post">
+                                            <div class="mb-3">
+                                                <label class="form-label">Your Name:</label>
+                                                <input type="text" name="name" class="form-control" required />
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Your Comment:</label>
+                                                <textarea name="text" class="form-control" required></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Submit</button>
                                         </form>
+<!--                                       < !&#45;&#45; Display Comments &ndash;&gt;-->
+                                        <h3 class="mt-4">Comments</h3>
+                                        <div th:each="comment : ${comments}" class="card mt-2">
+                                            <div class="card-body">
+                                                <p>
+                                                    <strong th:text="${comment.name}"></strong>
+                                                    - <span th:text="${#temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+                                                </p>
+                                                <p th:text="${comment.comment}"></p>
+                                                <button class="btn btn-sm btn-outline-primary" th:onclick="|showReplyForm(${comment.id})|">Reply</button>
+
+                                                <!-- Reply Form (Initially Hidden) -->
+                                                <form th:id="|replyForm-${comment.id}|" th:action="@{/posts/{postId}/addComment(postId=${postId})}"
+                                                      method="post" style="display: none;" class="mt-2">
+                                                    <input type="hidden" name="parentId" th:value="${comment.id}" />
+                                                    <div class="mb-2">
+                                                        <input type="text" name="name" class="form-control" placeholder="Your Name" required />
+                                                    </div>
+                                                    <div class="mb-2">
+                                                        <textarea name="text" class="form-control" placeholder="Your Reply" required></textarea>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-sm btn-success">Submit Reply</button>
+                                                </form>
+                                                <!-- Display Replies -->
+                                                <div th:each="reply : ${comment.replies}" class="ms-4 mt-2">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <p>
+                                                                <strong th:text="${reply.name}"></strong>
+                                                                - <span th:text="${#temporals.format(reply.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+                                                            </p>
+                                                            <p th:text="${reply.comment}">Reply</p>
+                                                            <button class="btn btn-sm btn-outline-primary" th:onclick="|showReplyForm(${comment.id})|">Reply</button>
+
+                                                            <!-- Reply Form (Initially Hidden) -->
+                                                            <form th:id="|replyForm-${comment.id}|" th:action="@{/posts/{postId}/addComment(postId=${postId})}"
+                                                                  method="post" style="display: none;" class="mt-2">
+                                                                <input type="hidden" name="parentId" th:value="${comment.id}" />
+                                                                <div class="mb-2">
+                                                                    <input type="text" name="name" class="form-control" placeholder="Your Name" required />
+                                                                </div>
+                                                                <div class="mb-2">
+                                                                    <textarea name="text" class="form-control" placeholder="Your Reply" required></textarea>
+                                                                </div>
+                                                                <button type="submit" class="btn btn-sm btn-success">Submit Reply</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                     </div>
+
                                 </div>
+
                             </div>
                         </div><!-- end page-wrapper -->
                     </div><!-- end col -->
+                        </div>
+                    </div>
                     <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                         <div class="sidebar">
                             <div class="widget">

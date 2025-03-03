@@ -1,7 +1,9 @@
 package com.example.demo.Controller;
 
+import com.example.demo.Service.commentService;
 import com.example.demo.Service.postService;
 import com.example.demo.Service.subscriptionService;
+import com.example.demo.model.comment;
 import com.example.demo.model.posts;
 import com.example.demo.model.subscription;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import com.example.demo.Service.commentService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +32,9 @@ public class frontEndController {
 
     @Autowired
     subscriptionService subscriptionService;
+
+    @Autowired
+    private commentService commentService;
 
     @GetMapping(value = "/test")
     public String index(Model model,  @RequestParam(defaultValue = "0") int page,
@@ -67,6 +72,10 @@ public class frontEndController {
         model.addAttribute("posts", posts);
         List<posts> recentPost = postService.getRecentPosts();
         model.addAttribute("recentpost",recentPost);
+        List<comment> comments = commentService.getCommetsByPostId((long)idd);
+        model.addAttribute("comments", comments);
+//        model.addAttribute("postId", postId);
+        model.addAttribute("comment", new comment());
         return "garden-single";  // This returns the 'garden-single' view with the post data
     }
 
