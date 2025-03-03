@@ -47,7 +47,7 @@ public class commentController {
        comment.setPost(posts);
         System.out.println(comment.getId());
         commentService.saveComment(comment, parentId);
-        return "redirect:/posts/" + postId;
+        return "redirect:/details?postid=" + postId;
 
     }
 
