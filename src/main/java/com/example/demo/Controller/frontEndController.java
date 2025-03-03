@@ -36,6 +36,20 @@ public class frontEndController {
     @Autowired
     private commentService commentService;
 
+    @GetMapping(value = "/")
+    public String entryindex(Model model,  @RequestParam(defaultValue = "0") int page,
+                        @RequestParam(defaultValue = "5") int size)
+    {
+        Page<posts> posts = postService.getAlllistPosts(page,size);
+        List<posts> recentPost = postService.getRecentPosts();
+//        model.addAttribute("currentPage", 0);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", posts.getTotalPages());
+        model.addAttribute("posts", posts);
+        model.addAttribute("recentpost",recentPost);
+
+        return "index";
+    }
     @GetMapping(value = "/test")
     public String index(Model model,  @RequestParam(defaultValue = "0") int page,
                         @RequestParam(defaultValue = "5") int size)
