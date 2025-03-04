@@ -16,7 +16,7 @@ import java.util.Date;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 public class posts {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,11 +29,11 @@ public class posts {
     @Column(nullable = false)
     private String  description;
 
-//    public posts()
-//    {
-//        this.createdate = LocalDateTime.now();
-//
-//    }
+    public posts()
+    {
+        this.createdate = LocalDateTime.now();
+
+    }
     @Column(nullable = false)
     private LocalDateTime createdate;
 
@@ -45,6 +45,5 @@ public class posts {
 
     public posts(Long postId) {
         this.id = postId;
-        this.createdate = LocalDateTime.now();
     }
 }
