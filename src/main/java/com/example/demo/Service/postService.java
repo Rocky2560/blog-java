@@ -74,7 +74,6 @@
                 //set the image path to the objects
                 posts.setImage("/uploads/" + fileName);
 
-
             }
 
             userpostsRepository.save(posts);
