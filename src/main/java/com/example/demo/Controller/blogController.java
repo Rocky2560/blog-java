@@ -89,6 +89,7 @@ public class blogController {
         return "edit";
     }
 
+
     @GetMapping("editPost/{id}")
     public  ResponseEntity<posts>  editPost(@PathVariable("id") int id, Model model)
     {

@@ -25,6 +25,7 @@ public class commentController {
     @GetMapping("/{postId}")
     public String showPostWithComments(@PathVariable Long postId, Model model)
     {
+
         List<comment> comments = commentService.getCommetsByPostId(postId);
         model.addAttribute("comments", comments);
         model.addAttribute("postId", postId);
