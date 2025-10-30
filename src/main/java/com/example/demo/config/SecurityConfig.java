@@ -43,9 +43,10 @@ public class SecurityConfig {
 //                        .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**","/uploads/**", "/").permitAll()
 //                        .anyRequest().authenticated()
 //                )
-        http
+        http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/**").hasRole("ADMIN")
+                        .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**", "/uploads/**", "/", "/login", "/error").permitAll()
                         .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
@@ -54,6 +55,7 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .logout(logout -> logout.logoutSuccessUrl("/api/login").permitAll());
+
 
         return http.build();
 
